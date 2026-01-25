@@ -1,161 +1,162 @@
-/* =========================================================
-   GLOBAL VARIABLES
-========================================================= */
-:root {
-  --bg: #0b0d10;
-  --bg-alt: #121520;
-  --fg: #e6e6e6;
-  --muted: #a5a8b0;
-  --accent: #4da3ff;
-  --max-width: 1100px;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>EpicWorks — Local AI Kits</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="EpicWorks builds pre-configured, offline-first AI systems that run locally on real hardware." />
 
-/* =========================================================
-   BASE STYLES
-========================================================= */
-* {
-  box-sizing: border-box;
-}
+  <!-- Main stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+</head>
 
-html {
-  scroll-behavior: smooth;
-}
+<body>
 
-body {
-  margin: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  background: var(--bg);
-  color: var(--fg);
-  line-height: 1.65;
-}
+<!-- =========================================================
+     HEADER / NAVIGATION
+     Edit links here if you add/remove sections
+========================================================= -->
+<header class="site-header">
+  <div class="header-inner">
 
-/* =========================================================
-   HEADER / NAV
-========================================================= */
-.site-header {
-  position: sticky;
-  top: 0;
-  background: rgba(11,13,16,0.9);
-  backdrop-filter: blur(8px);
-  border-bottom: 1px solid #1f2330;
-  z-index: 100;
-}
+    <!-- Logo -->
+    <div class="logo">
+      <img src="assets/logo.png" alt="EpicWorks">
+    </div>
 
-.header-inner {
-  max-width: var(--max-width);
-  margin: auto;
-  padding: 1rem 1.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
+    <!-- Navigation menu -->
+    <nav class="nav">
+      <a href="#about">About</a>
+      <a href="#kits">Kits</a>
+      <a href="#approach">Approach</a>
+      <a href="#access">Access</a>
+    </nav>
 
-.logo img {
-  height: 36px;
-}
+  </div>
+</header>
 
-.nav a {
-  margin-left: 1.5rem;
-  color: var(--muted);
-  text-decoration: none;
-  font-size: 0.95rem;
-}
+<!-- =========================================================
+     HERO SECTION
+     This sets first impression — keep it strong and simple
+========================================================= -->
+<section class="hero">
+  <div class="content">
 
-.nav a:hover {
-  color: var(--fg);
-}
+    <h1>Local AI.<br>Done Properly.</h1>
 
-/* =========================================================
-   HERO
-========================================================= */
-.hero {
-  padding: 6rem 1.5rem 5rem;
-}
+    <p class="hero-subtitle">
+      Pre-built, offline-first AI systems for real hardware.<br>
+      No cloud. No hype. No guesswork.
+    </p>
 
-.hero h1 {
-  font-size: 3rem;
-  line-height: 1.1;
-  margin-bottom: 1.5rem;
-}
+  </div>
+</section>
 
-.hero-subtitle {
-  color: var(--muted);
-  font-size: 1.1rem;
-}
+<!-- =========================================================
+     ABOUT SECTION
+     Edit text only inside this block
+========================================================= -->
+<section id="about" class="section">
+  <div class="content narrow">
 
-/* =========================================================
-   SECTIONS
-========================================================= */
-.section {
-  padding: 5rem 1.5rem;
-}
+    <h2>What EpicWorks Is</h2>
 
-.section.alt {
-  background: var(--bg-alt);
-}
+    <p>
+      EpicWorks builds <strong>pre-engineered AI kits</strong> designed to run locally on your own machines.
+      These are not courses, demos, or experiments — they are complete, documented systems.
+    </p>
 
-.content {
-  max-width: var(--max-width);
-  margin: auto;
-}
+    <p>
+      You get predictable performance, full privacy, and configurations that reflect real-world constraints.
+    </p>
 
-.content.narrow {
-  max-width: 720px;
-}
+  </div>
+</section>
 
-/* =========================================================
-   CARDS
-========================================================= */
-.cards {
-  display: grid;
-  gap: 2rem;
-  margin-top: 3rem;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-}
+<!-- =========================================================
+     KITS SECTION
+     Each kit = one card, easy to add/remove
+========================================================= -->
+<section id="kits" class="section alt">
+  <div class="content">
 
-.card {
-  background: #151924;
-  padding: 2rem;
-  border-radius: 10px;
-  border: 1px solid #1f2330;
-}
+    <h2>Local AI Kits</h2>
 
-.card h3 {
-  margin-top: 0;
-}
+    <div class="cards">
 
-/* =========================================================
-   LISTS
-========================================================= */
-.list {
-  margin-top: 2rem;
-  padding-left: 1.2rem;
-}
+      <div class="card">
+        <h3>Windows Dual-GPU AI</h3>
+        <p>
+          Optimized local inference for multi-GPU Windows systems.
+          Includes performance expectations and failure modes.
+        </p>
+      </div>
 
-.list li {
-  margin-bottom: 0.6rem;
-}
+      <div class="card">
+        <h3>AI on Raspberry Pi</h3>
+        <p>
+          Reality-checked AI for Raspberry Pi 4/5.
+          What works, what doesn’t, and why.
+        </p>
+      </div>
 
-/* =========================================================
-   CTA
-========================================================= */
-.cta {
-  display: inline-block;
-  margin-top: 2rem;
-  padding: 0.8rem 1.8rem;
-  border-radius: 8px;
-  background: var(--accent);
-  color: #000;
-  text-decoration: none;
-  font-weight: 600;
-}
+      <div class="card">
+        <h3>Offline AI for Schools</h3>
+        <p>
+          Account-free, private AI setups suitable for families and education.
+        </p>
+      </div>
 
-/* =========================================================
-   FOOTER
-========================================================= */
-.site-footer {
-  padding: 2.5rem 1.5rem;
-  text-align: center;
-  color: var(--muted);
-  font-size: 0.9rem;
-}
+    </div>
+
+  </div>
+</section>
+
+<!-- =========================================================
+     APPROACH SECTION
+========================================================= -->
+<section id="approach" class="section">
+  <div class="content narrow">
+
+    <h2>How EpicWorks Thinks</h2>
+
+    <ul class="list">
+      <li>No cloud dependency</li>
+      <li>No video-only knowledge</li>
+      <li>Written, repeatable setups</li>
+      <li>Tested on real hardware</li>
+      <li>Designed to still work years from now</li>
+    </ul>
+
+  </div>
+</section>
+
+<!-- =========================================================
+     ACCESS / CTA SECTION
+========================================================= -->
+<section id="access" class="section alt">
+  <div class="content narrow">
+
+    <h2>Access & Updates</h2>
+
+    <p>
+      EpicWorks kits and updates are distributed via Patreon.
+      Membership provides access to current releases and future improvements.
+    </p>
+
+    <a class="cta" href="https://patreon.com/yourpage" target="_blank">
+      Access EpicWorks on Patreon
+    </a>
+
+  </div>
+</section>
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+<footer class="site-footer">
+  <p>© 2026 EpicWorks. Built to last.</p>
+</footer>
+
+</body>
+</html>
