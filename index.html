@@ -4,8 +4,14 @@
   <!--
     EpicWorks — Modular Static Site
     index.html = shell / assembler only
-    Sections loaded via iframe (static-safe)
+
+    Responsibilities:
+    - Global layout
+    - Navigation
+    - Section composition
+    - Accessibility fallbacks
   -->
+
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -37,7 +43,7 @@
         <span class="brand__name">EpicWorks</span>
       </a>
 
-      <!-- Desktop nav -->
+      <!-- Desktop navigation -->
       <nav class="nav" aria-label="Primary navigation">
         <a class="nav__link" href="#about">About</a>
         <a class="nav__link" href="#offerings">Offerings</a>
@@ -45,7 +51,7 @@
         <a class="nav__cta" href="#engagement">Get in touch</a>
       </nav>
 
-      <!-- Mobile fallback CTA (no JS menu) -->
+      <!-- Mobile fallback CTA (no JS menu by design) -->
       <a class="nav__cta nav__cta--mobile" href="#engagement">
         Contact
       </a>
@@ -54,16 +60,45 @@
   </header>
 
   <!-- =====================================================
+       No-JS fallback
+       ===================================================== -->
+  <noscript>
+    <div class="container" style="padding: 2rem 0;">
+      <p>
+        This site is built with modular sections.
+        JavaScript is only used to improve layout.
+      </p>
+      <p>
+        If you are seeing this message, please use the direct section pages:
+      </p>
+      <ul>
+        <li><a href="sections/hero.html">Hero</a></li>
+        <li><a href="sections/about.html">About</a></li>
+        <li><a href="sections/offerings.html">Offerings</a></li>
+        <li><a href="sections/methodology.html">Methodology</a></li>
+        <li><a href="sections/engagement.html">Contact</a></li>
+      </ul>
+    </div>
+  </noscript>
+
+  <!-- =====================================================
        Main Content
        ===================================================== -->
   <main id="main">
 
+    <!--
+      Loading strategy:
+      - Hero: eager (first paint)
+      - Others: lazy (performance)
+    -->
+
     <!-- HERO -->
     <iframe
       src="sections/hero.html"
-      title="EpicWorks hero"
+      title="EpicWorks introduction"
       class="section-frame"
       loading="eager"
+      aria-label="EpicWorks hero section"
     ></iframe>
 
     <!-- ABOUT -->
@@ -72,6 +107,7 @@
       title="About EpicWorks"
       class="section-frame"
       loading="lazy"
+      aria-label="About EpicWorks"
     ></iframe>
 
     <!-- OFFERINGS -->
@@ -80,6 +116,7 @@
       title="EpicWorks offerings"
       class="section-frame"
       loading="lazy"
+      aria-label="EpicWorks offerings"
     ></iframe>
 
     <!-- METHODOLOGY -->
@@ -88,6 +125,7 @@
       title="EpicWorks methodology"
       class="section-frame"
       loading="lazy"
+      aria-label="EpicWorks methodology"
     ></iframe>
 
     <!-- ENGAGEMENT -->
@@ -96,6 +134,7 @@
       title="Contact EpicWorks"
       class="section-frame"
       loading="lazy"
+      aria-label="Contact EpicWorks"
     ></iframe>
 
   </main>
@@ -129,9 +168,11 @@
       <span>Built for Cloudflare Pages</span>
     </div>
   </footer>
-<script src="js/iframe-resize.js"></script>
+
+  <!-- =====================================================
+       Optional JS (isolated, layout-only)
+       ===================================================== -->
+  <script src="js/iframe-resize.js"></script>
+
 </body>
 </html>
-<!-- =====================================================
-     END INDEX.HTML
-     ===================================================== -->
