@@ -12,6 +12,16 @@
    1) DESIGN TOKENS (single source of truth)
    - Change these to re-theme safely
    ========================================================= */
+
+   /* =========================================
+   HTML Section Includes via <object>
+   ========================================= */
+.section-object{
+  display: block;
+  width: 100%;
+  border: none;
+}
+
 :root{
   /* Color surfaces */
   --bg: #fbfbfa;          /* warm off-white (premium paper) */
