@@ -149,6 +149,17 @@ a {
 
   /* This creates visual rhythm between sections */
   margin-block: var(--space-lg);
+  
+  /* Loading skeleton animation */
+  background: linear-gradient(90deg, var(--surface) 25%, rgba(255,255,255,0.5) 50%, var(--surface) 75%);
+  background-size: 200% 100%;
+  animation: shimmer-load 2s infinite;
+  min-height: 300px;
+}
+
+@keyframes shimmer-load {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
 }
 
 

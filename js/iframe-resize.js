@@ -8,27 +8,32 @@
    ========================================================= */
 
 (function () {
-  function resizeIframes() {
-    const frames = document.querySelectorAll('.section-frame');
+  function resizeIframe(frame) {
+    try {
+      const doc = frame.contentDocument || frame.contentWindow.document;
+      if (!doc) return;
 
-    frames.forEach(frame => {
-      try {
-        const doc = frame.contentDocument || frame.contentWindow.document;
-        if (!doc) return;
-
-        const height = doc.documentElement.scrollHeight;
-        frame.style.height = height + 'px';
-      } catch (e) {
-        // Fail silently (cross-origin safety)
-      }
-    });
+      const height = doc.documentElement.scrollHeight;
+      frame.style.height = height + 'px';
+    } catch (e) {
+      // Fail silently (cross-origin safety)
+    }
   }
 
-  // Resize when iframes load
-  window.addEventListener('load', resizeIframes);
+  function resizeAllIframes() {
+    document.querySelectorAll('.section-frame').forEach(resizeIframe);
+  }
 
-  // Resize on viewport change
-  window.addEventListener('resize', resizeIframes);
+  // Resize each iframe when it loads
+  document.querySelectorAll('.section-frame').forEach(frame => {
+    frame.addEventListener('load', () => resizeIframe(frame));
+  });
+
+  // Also resize all on window load
+  window.addEventListener('load', resizeAllIframes);
+
+  // Resize all on viewport change
+  window.addEventListener('resize', resizeAllIframes);
 })();
 /* =========================================================
    END iframe auto-height helper
