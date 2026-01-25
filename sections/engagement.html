@@ -1,63 +1,207 @@
-<!-- =====================================================
-     ENGAGEMENT / CTA SECTION
-     File: /sections/engagement.html
-     Purpose:
-     - Start conversations
-     - Avoid aggressive sales language
-     ===================================================== -->
-<section id="engagement" class="section section--engagement">
-  <div class="container">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EpicWorks — Engagement</title>
 
-    <div class="engagement__box">
+  <!-- =====================================================
+       Engagement section — iframe-isolated styles
+       ===================================================== -->
+  <style>
+    :root {
+      --bg: #fbfbfa;
+      --surface: #ffffff;
+      --text: #141414;
+      --text-muted: #4b4b4b;
+      --line: rgba(20,20,20,0.12);
+      --accent: #1f3a5f;
 
-      <div class="engagement__content">
-        <h2 class="engagement__title">Start a conversation</h2>
-        <p class="engagement__text">
+      --radius: 20px;
+      --max-width: 1120px;
+
+      --space-sm: 16px;
+      --space-md: 32px;
+      --space-lg: 64px;
+      --space-xl: 96px;
+
+      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+    }
+
+    body {
+      padding: var(--space-xl) var(--space-md);
+    }
+
+    .engagement {
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: var(--space-lg);
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: var(--space-lg);
+    }
+
+    h2 {
+      font-size: clamp(28px, 3vw, 36px);
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      margin: 0 0 var(--space-sm);
+    }
+
+    .text {
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--text-muted);
+      max-width: 60ch;
+    }
+
+    .text + .text {
+      margin-top: var(--space-sm);
+    }
+
+    /* =========================
+       Form
+       ========================= */
+    form {
+      display: grid;
+      gap: var(--space-sm);
+    }
+
+    label {
+      display: grid;
+      gap: 6px;
+      font-size: 14px;
+    }
+
+    input,
+    textarea {
+      font-family: var(--font);
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      font-size: 14px;
+    }
+
+    input:focus,
+    textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    button {
+      margin-top: var(--space-sm);
+      padding: 12px 18px;
+      border-radius: 999px;
+      border: none;
+      background: var(--accent);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: default;
+      align-self: flex-start;
+    }
+
+    .note {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: var(--space-sm);
+    }
+
+    /* =========================
+       Responsive
+       ========================= */
+    @media (max-width: 900px) {
+      .panel {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: var(--space-lg) var(--space-sm);
+      }
+
+      .panel {
+        padding: var(--space-md);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <section class="engagement" aria-labelledby="engagement-title">
+
+    <div class="panel">
+
+      <!-- Left: Text -->
+      <div>
+        <h2 id="engagement-title">Start a conversation</h2>
+        <p class="text">
           If you are exploring local AI deployment — or questioning
           whether your current setup is appropriate — we can help
           you think it through.
         </p>
-        <p class="engagement__text">
+        <p class="text">
           Describe your environment, constraints, and goals.
-          We will respond with clarity, not a sales script.
+          We respond with clarity, not a sales script.
         </p>
       </div>
 
-      <!-- Static-safe contact form placeholder -->
-      <form class="engagement__form" method="post" action="#">
-        <div class="form-row">
-          <label class="form-field">
-            <span>Name</span>
-            <input type="text" placeholder="Your name" />
-          </label>
+      <!-- Right: Form -->
+      <form method="post" action="#">
+        <label>
+          Name
+          <input type="text" name="name" placeholder="Your name" />
+        </label>
 
-          <label class="form-field">
-            <span>Email</span>
-            <input type="email" placeholder="you@example.com" />
-          </label>
-        </div>
+        <label>
+          Email
+          <input type="email" name="email" placeholder="you@example.com" />
+        </label>
 
-        <label class="form-field">
-          <span>Message</span>
+        <label>
+          Message
           <textarea
-            rows="4"
+            name="message"
             placeholder="Tell us about your environment and goals"
           ></textarea>
         </label>
 
-        <button type="submit" class="btn btn--primary">
-          Send message
-        </button>
+        <button type="submit">Send message</button>
 
-        <p class="form-note">
-          No tracking, no automation funnels. Just a human reply.
+        <p class="note">
+          No tracking. No automation funnels. Just a human reply.
         </p>
       </form>
 
     </div>
 
-  </div>
-</section>
+  </section>
+
+</body>
+</html>
 <!-- =====================================================
      END ENGAGEMENT / CTA SECTION
      ===================================================== -->
