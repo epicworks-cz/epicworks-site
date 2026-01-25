@@ -2,56 +2,42 @@
 <html lang="en">
 <head>
   <!--
-    EpicWorks — Static Modular Site
-    ROLE OF THIS FILE:
-    - Global document shell
-    - Loads shared CSS
-    - Contains header & footer
-    - Assembles section modules via explicit insertion points
-
-    IMPORTANT:
-    - Do NOT place business copy here
-    - Do NOT style sections here
-    - Only structure and composition
+    EpicWorks — Modular Static Site
+    index.html = shell / assembler only
+    Sections loaded via iframe (static-safe)
   -->
-
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <title>EpicWorks — Secure, Local AI Infrastructure</title>
+  <title>EpicWorks — Systems that think.</title>
   <meta
     name="description"
     content="EpicWorks builds secure, local-first AI infrastructure for teams, schools, startups, and advanced individuals."
   />
 
-  <!-- Shared design system -->
   <link rel="stylesheet" href="css/style.css" />
-
-  <!-- Favicon (optional) -->
   <link rel="icon" href="assets/logo.png" />
 </head>
 
 <body>
 
   <!-- =====================================================
-       GLOBAL HEADER
-       - Exists once
-       - Navigation links point to section IDs
+       Accessibility: Skip to content
+       ===================================================== -->
+  <a href="#main" class="skip-link">Skip to main content</a>
+
+  <!-- =====================================================
+       Header / Navigation
        ===================================================== -->
   <header class="site-header" id="top">
     <div class="container header__inner">
 
-      <!-- Brand -->
       <a href="#top" class="brand" aria-label="EpicWorks home">
-        <img
-          src="assets/logo.png"
-          alt="EpicWorks logo"
-          class="brand__logo"
-        />
+        <img src="assets/logo.png" alt="EpicWorks logo" class="brand__logo" />
         <span class="brand__name">EpicWorks</span>
       </a>
 
-      <!-- Primary Navigation -->
+      <!-- Desktop nav -->
       <nav class="nav" aria-label="Primary navigation">
         <a class="nav__link" href="#about">About</a>
         <a class="nav__link" href="#offerings">Offerings</a>
@@ -59,51 +45,72 @@
         <a class="nav__cta" href="#engagement">Get in touch</a>
       </nav>
 
+      <!-- Mobile fallback CTA (no JS menu) -->
+      <a class="nav__cta nav__cta--mobile" href="#engagement">
+        Contact
+      </a>
+
     </div>
   </header>
 
   <!-- =====================================================
-       MAIN CONTENT
-       This is where section modules are assembled.
-       Each section below is COPY-PASTED from /sections/*
+       Main Content
        ===================================================== -->
-<main>
+  <main id="main">
 
-  <!-- HERO -->
-  <object type="text/html" data="sections/hero.html" class="section-object"></object>
+    <!-- HERO -->
+    <iframe
+      src="sections/hero.html"
+      title="EpicWorks hero"
+      class="section-frame"
+      loading="eager"
+    ></iframe>
 
-  <!-- ABOUT -->
-  <object type="text/html" data="sections/about.html" class="section-object"></object>
+    <!-- ABOUT -->
+    <iframe
+      src="sections/about.html"
+      title="About EpicWorks"
+      class="section-frame"
+      loading="lazy"
+    ></iframe>
 
-  <!-- OFFERINGS -->
-  <object type="text/html" data="sections/offerings.html" class="section-object"></object>
+    <!-- OFFERINGS -->
+    <iframe
+      src="sections/offerings.html"
+      title="EpicWorks offerings"
+      class="section-frame"
+      loading="lazy"
+    ></iframe>
 
-  <!-- METHODOLOGY -->
-  <object type="text/html" data="sections/methodology.html" class="section-object"></object>
+    <!-- METHODOLOGY -->
+    <iframe
+      src="sections/methodology.html"
+      title="EpicWorks methodology"
+      class="section-frame"
+      loading="lazy"
+    ></iframe>
 
-  <!-- ENGAGEMENT -->
-  <object type="text/html" data="sections/engagement.html" class="section-object"></object>
+    <!-- ENGAGEMENT -->
+    <iframe
+      src="sections/engagement.html"
+      title="Contact EpicWorks"
+      class="section-frame"
+      loading="lazy"
+    ></iframe>
 
-</main>
-
+  </main>
 
   <!-- =====================================================
-       GLOBAL FOOTER
-       - Exists once
-       - No section-specific logic
+       Footer
        ===================================================== -->
   <footer class="site-footer">
     <div class="container footer__inner">
 
-      <div class="footer__brand">
-        <img
-          src="assets/logo.png"
-          alt="EpicWorks logo"
-          class="brand__logo"
-        />
+      <div>
+        <img src="assets/logo.png" alt="EpicWorks logo" class="brand__logo" />
         <p class="footer__tagline">
-          Secure, local-first AI infrastructure.<br />
-          Calmly engineered. Built to last.
+          Systems that think.<br />
+          Secure, local-first AI infrastructure.
         </p>
       </div>
 
@@ -119,9 +126,12 @@
     <div class="footer__bottom">
       <span>© 2026 EpicWorks</span>
       <span class="footer__separator">•</span>
-      <span>Static site hosted on Cloudflare Pages</span>
+      <span>Built for Cloudflare Pages</span>
     </div>
   </footer>
 
 </body>
 </html>
+<!-- =====================================================
+     END INDEX.HTML
+     ===================================================== -->
