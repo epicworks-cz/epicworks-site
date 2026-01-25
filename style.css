@@ -1,12 +1,24 @@
+/* =========================================================
+   GLOBAL VARIABLES
+========================================================= */
 :root {
   --bg: #0b0d10;
+  --bg-alt: #121520;
   --fg: #e6e6e6;
-  --muted: #a0a0a0;
+  --muted: #a5a8b0;
   --accent: #4da3ff;
+  --max-width: 1100px;
 }
 
+/* =========================================================
+   BASE STYLES
+========================================================= */
 * {
   box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -14,77 +26,135 @@ body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   background: var(--bg);
   color: var(--fg);
-  line-height: 1.6;
+  line-height: 1.65;
 }
 
-.header {
-  padding: 1.5rem;
+/* =========================================================
+   HEADER / NAV
+========================================================= */
+.site-header {
+  position: sticky;
+  top: 0;
+  background: rgba(11,13,16,0.9);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid #1f2330;
+  z-index: 100;
 }
 
-.logo {
-  height: 40px;
-}
-
-.container {
-  max-width: 960px;
+.header-inner {
+  max-width: var(--max-width);
   margin: auto;
-  padding: 2rem 1.5rem;
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
+.logo img {
+  height: 36px;
+}
+
+.nav a {
+  margin-left: 1.5rem;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+.nav a:hover {
+  color: var(--fg);
+}
+
+/* =========================================================
+   HERO
+========================================================= */
 .hero {
-  padding: 4rem 0;
+  padding: 6rem 1.5rem 5rem;
 }
 
 .hero h1 {
-  font-size: 2.8rem;
-  margin-bottom: 1rem;
+  font-size: 3rem;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
 }
 
-.subtitle {
+.hero-subtitle {
   color: var(--muted);
   font-size: 1.1rem;
 }
 
+/* =========================================================
+   SECTIONS
+========================================================= */
 .section {
-  margin-top: 4rem;
+  padding: 5rem 1.5rem;
 }
 
+.section.alt {
+  background: var(--bg-alt);
+}
+
+.content {
+  max-width: var(--max-width);
+  margin: auto;
+}
+
+.content.narrow {
+  max-width: 720px;
+}
+
+/* =========================================================
+   CARDS
+========================================================= */
 .cards {
   display: grid;
-  gap: 1.5rem;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 }
 
 .card {
-  background: #151821;
-  padding: 1.5rem;
-  border-radius: 8px;
+  background: #151924;
+  padding: 2rem;
+  border-radius: 10px;
+  border: 1px solid #1f2330;
 }
 
 .card h3 {
   margin-top: 0;
 }
 
+/* =========================================================
+   LISTS
+========================================================= */
+.list {
+  margin-top: 2rem;
+  padding-left: 1.2rem;
+}
+
+.list li {
+  margin-bottom: 0.6rem;
+}
+
+/* =========================================================
+   CTA
+========================================================= */
 .cta {
   display: inline-block;
-  margin-top: 1.5rem;
-  padding: 0.7rem 1.4rem;
+  margin-top: 2rem;
+  padding: 0.8rem 1.8rem;
+  border-radius: 8px;
   background: var(--accent);
   color: #000;
   text-decoration: none;
   font-weight: 600;
-  border-radius: 6px;
 }
 
-.cta.secondary {
-  background: transparent;
-  border: 1px solid var(--accent);
-  color: var(--accent);
-}
-
-.footer {
-  margin-top: 6rem;
-  padding: 2rem;
+/* =========================================================
+   FOOTER
+========================================================= */
+.site-footer {
+  padding: 2.5rem 1.5rem;
   text-align: center;
   color: var(--muted);
   font-size: 0.9rem;
