@@ -8,7 +8,7 @@
     Responsibilities:
     - Global layout
     - Navigation
-    - Section composition
+    - Section composition via iframes
     - Accessibility fallbacks
   -->
 
@@ -43,16 +43,16 @@
         <span class="brand__name">EpicWorks</span>
       </a>
 
-      <!-- Desktop navigation -->
+      <!-- Desktop navigation (iframe-aware) -->
       <nav class="nav" aria-label="Primary navigation">
-        <a class="nav__link" href="#about">About</a>
-        <a class="nav__link" href="#offerings">Offerings</a>
-        <a class="nav__link" href="#methodology">Methodology</a>
-        <a class="nav__cta" href="#engagement">Get in touch</a>
+        <a class="nav__link" href="#" data-scroll="section-about">About</a>
+        <a class="nav__link" href="#" data-scroll="section-offerings">Offerings</a>
+        <a class="nav__link" href="#" data-scroll="section-methodology">Methodology</a>
+        <a class="nav__cta"  href="#" data-scroll="section-engagement">Get in touch</a>
       </nav>
 
-      <!-- Mobile fallback CTA (no JS menu by design) -->
-      <a class="nav__cta nav__cta--mobile" href="#engagement">
+      <!-- Mobile fallback CTA -->
+      <a class="nav__cta nav__cta--mobile" href="#" data-scroll="section-engagement">
         Contact
       </a>
 
@@ -66,7 +66,7 @@
     <div class="container" style="padding: 2rem 0;">
       <p>
         This site is built with modular sections.
-        JavaScript is only used to improve layout.
+        JavaScript is only used for navigation and layout polish.
       </p>
       <p>
         If you are seeing this message, please use the direct section pages:
@@ -86,57 +86,55 @@
        ===================================================== -->
   <main id="main">
 
-    <!--
-      Loading strategy:
-      - Hero: eager (first paint)
-      - Others: lazy (performance)
-    -->
+    <!-- HERO -->
+    <iframe
+      id="section-hero"
+      src="sections/hero.html"
+      class="section-frame"
+      loading="eager"
+      title="EpicWorks introduction"
+      aria-label="EpicWorks hero section"
+    ></iframe>
 
-<!-- HERO -->
-<iframe
-  id="section-hero"
-  src="sections/hero.html"
-  class="section-frame"
-  loading="eager"
-  title="EpicWorks introduction"
-></iframe>
+    <!-- ABOUT -->
+    <iframe
+      id="section-about"
+      src="sections/about.html"
+      class="section-frame"
+      loading="lazy"
+      title="About EpicWorks"
+      aria-label="About EpicWorks"
+    ></iframe>
 
-<!-- ABOUT -->
-<iframe
-  id="section-about"
-  src="sections/about.html"
-  class="section-frame"
-  loading="lazy"
-  title="About EpicWorks"
-></iframe>
+    <!-- OFFERINGS -->
+    <iframe
+      id="section-offerings"
+      src="sections/offerings.html"
+      class="section-frame"
+      loading="lazy"
+      title="EpicWorks offerings"
+      aria-label="EpicWorks offerings"
+    ></iframe>
 
-<!-- OFFERINGS -->
-<iframe
-  id="section-offerings"
-  src="sections/offerings.html"
-  class="section-frame"
-  loading="lazy"
-  title="EpicWorks offerings"
-></iframe>
+    <!-- METHODOLOGY -->
+    <iframe
+      id="section-methodology"
+      src="sections/methodology.html"
+      class="section-frame"
+      loading="lazy"
+      title="EpicWorks methodology"
+      aria-label="EpicWorks methodology"
+    ></iframe>
 
-<!-- METHODOLOGY -->
-<iframe
-  id="section-methodology"
-  src="sections/methodology.html"
-  class="section-frame"
-  loading="lazy"
-  title="EpicWorks methodology"
-></iframe>
-
-<!-- ENGAGEMENT -->
-<iframe
-  id="section-engagement"
-  src="sections/engagement.html"
-  class="section-frame"
-  loading="lazy"
-  title="Contact EpicWorks"
-></iframe>
-
+    <!-- ENGAGEMENT -->
+    <iframe
+      id="section-engagement"
+      src="sections/engagement.html"
+      class="section-frame"
+      loading="lazy"
+      title="Contact EpicWorks"
+      aria-label="Contact EpicWorks"
+    ></iframe>
 
   </main>
 
@@ -154,11 +152,12 @@
         </p>
       </div>
 
+      <!-- Footer navigation (iframe-aware) -->
       <nav class="footer__nav" aria-label="Footer navigation">
-        <a href="#about">About</a>
-        <a href="#offerings">Offerings</a>
-        <a href="#methodology">Methodology</a>
-        <a href="#engagement">Contact</a>
+        <a href="#" data-scroll="section-about">About</a>
+        <a href="#" data-scroll="section-offerings">Offerings</a>
+        <a href="#" data-scroll="section-methodology">Methodology</a>
+        <a href="#" data-scroll="section-engagement">Contact</a>
       </nav>
 
     </div>
@@ -171,9 +170,10 @@
   </footer>
 
   <!-- =====================================================
-       Optional JS (isolated, layout-only)
+       Optional JS (isolated, layout + navigation only)
        ===================================================== -->
   <script src="js/iframe-resize.js"></script>
+  <script src="js/iframe-nav.js"></script>
 
 </body>
 </html>
