@@ -1,532 +1,155 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <!--
-    EpicWorks — Local AI Kits (Static Landing Page)
-    Requirements:
-    - No JS needed
-    - Anchor navigation
-    - Clean modular sections
-    - Cloudflare Pages-ready
+    EpicWorks — Static Modular Site
+    ROLE OF THIS FILE:
+    - Global document shell
+    - Loads shared CSS
+    - Contains header & footer
+    - Assembles section modules via explicit insertion points
+
+    IMPORTANT:
+    - Do NOT place business copy here
+    - Do NOT style sections here
+    - Only structure and composition
   -->
+
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="EpicWorks — Systems that think. Intelligent solutions for modern challenges." />
 
-  <title>EpicWorks — Systems that think.</title>
+  <title>EpicWorks — Secure, Local AI Infrastructure</title>
+  <meta
+    name="description"
+    content="EpicWorks builds secure, local-first AI infrastructure for teams, schools, startups, and advanced individuals."
+  />
 
-  <!-- Fonts: modern editorial, minimal. No external dependencies required.
-       If you want premium webfonts later, swap via @font-face in CSS. -->
-  <link rel="stylesheet" href="styles.css" />
+  <!-- Shared design system -->
+  <link rel="stylesheet" href="css/style.css" />
 
   <!-- Favicon (optional) -->
-<link rel="icon" href="favicon_v2.png">
+  <link rel="icon" href="assets/logo.png" />
 </head>
 
 <body>
-  <!-- =========================
-       Top Announcement (Optional)
-       ========================= -->
-  <div class="topbar" role="status" aria-label="Announcement">
-    <div class="container topbar__inner">
-      <span class="topbar__pill">Offline-first</span>
-      <span class="topbar__text">AI that stays on your hardware. Built to be dependable, not flashy.</span>
-    </div>
-  </div>
 
-  <!-- =========================
-       Header / Navigation
-       ========================= -->
-  <header class="header" id="top">
+  <!-- =====================================================
+       GLOBAL HEADER
+       - Exists once
+       - Navigation links point to section IDs
+       ===================================================== -->
+  <header class="site-header" id="top">
     <div class="container header__inner">
-      <a class="brand" href="#top" aria-label="EpicWorks home">
-        <img class="brand__logo" src="logo_v4.png" alt="EpicWorks logo" />
+
+      <!-- Brand -->
+      <a href="#top" class="brand" aria-label="EpicWorks home">
+        <img
+          src="assets/logo.png"
+          alt="EpicWorks logo"
+          class="brand__logo"
+        />
         <span class="brand__name">EpicWorks</span>
       </a>
 
+      <!-- Primary Navigation -->
       <nav class="nav" aria-label="Primary navigation">
-        <a class="nav__link" href="#kits">Kits</a>
-        <a class="nav__link" href="#how">How it works</a>
-        <a class="nav__link" href="#usecases">Use cases</a>
-        <a class="nav__link" href="#specs">Specs</a>
-        <a class="nav__link" href="#faq">FAQ</a>
-        <a class="nav__cta" href="#contact">Request access</a>
+        <a class="nav__link" href="#about">About</a>
+        <a class="nav__link" href="#offerings">Offerings</a>
+        <a class="nav__link" href="#methodology">Methodology</a>
+        <a class="nav__cta" href="#engagement">Get in touch</a>
       </nav>
 
-      <!-- Simple mobile affordance (no JS):
-           Shows nav stacked via CSS at smaller widths. -->
-      <a class="nav__cta nav__cta--mobile" href="#contact">Request access</a>
     </div>
   </header>
 
+  <!-- =====================================================
+       MAIN CONTENT
+       This is where section modules are assembled.
+       Each section below is COPY-PASTED from /sections/*
+       ===================================================== -->
   <main>
-    <!-- =========================
-         Hero
-         ========================= -->
-    <section class="hero">
-      <div class="container hero__grid">
-        <div class="hero__copy">
-          <p class="eyebrow">EpicWorks</p>
-          <h1 class="hero__title">
-            Systems that think
-            <span class="hero__title-accent">intelligently and independently.</span>
-          </h1>
-          <p class="hero__sub">
-            Advanced systems engineered to solve real problems.
-            Built for reliability, designed for performance.
-          </p>
 
-          <div class="hero__actions">
-            <a class="btn btn--primary" href="#kits">Explore kits</a>
-            <a class="btn btn--secondary" href="#how">See what’s included</a>
-          </div>
+    <!--
+      =====================================================
+      SECTION: HERO
+      Source file: /sections/hero.html
+      =====================================================
+    -->
+    <!-- PASTE hero.html HERE -->
 
-          <!-- Trust row (minimal, not “badge spam”) -->
-          <div class="hero__trust" aria-label="Key assurances">
-            <div class="trust-item">
-              <div class="trust-item__dot"></div>
-              <span>Runs offline</span>
-            </div>
-            <div class="trust-item">
-              <div class="trust-item__dot"></div>
-              <span>Private by default</span>
-            </div>
-            <div class="trust-item">
-              <div class="trust-item__dot"></div>
-              <span>Production-minded setup</span>
-            </div>
-          </div>
-        </div>
 
-        <!-- Hero visual: “productized” card stack -->
-        <div class="hero__visual" aria-hidden="true">
-          <div class="stack">
-            <div class="stack__card stack__card--top">
-              <div class="stack__header">
-                <span class="stack__label">EpicWorks</span>
-                <span class="stack__meta">Local deployment</span>
-              </div>
-              <div class="stack__body">
-                <div class="metric">
-                  <span class="metric__k">Privacy</span>
-                  <span class="metric__v">On-device</span>
-                </div>
-                <div class="metric">
-                  <span class="metric__k">Latency</span>
-                  <span class="metric__v">Low</span>
-                </div>
-                <div class="metric">
-                  <span class="metric__k">Control</span>
-                  <span class="metric__v">Full</span>
-                </div>
+    <!--
+      =====================================================
+      SECTION: ABOUT
+      Source file: /sections/about.html
+      =====================================================
+    -->
+    <!-- PASTE about.html HERE -->
 
-                <div class="divider"></div>
 
-                <div class="pill-row">
-                  <span class="pill">Windows dual-GPU</span>
-                  <span class="pill">Raspberry Pi</span>
-                  <span class="pill">Schools</span>
-                  <span class="pill">Air-gapped</span>
-                </div>
-              </div>
-            </div>
+    <!--
+      =====================================================
+      SECTION: OFFERINGS
+      Source file: /sections/offerings.html
+      =====================================================
+    -->
+    <!-- PASTE offerings.html HERE -->
 
-            <div class="stack__card stack__card--mid"></div>
-            <div class="stack__card stack__card--back"></div>
-          </div>
 
-          <!-- subtle framing -->
-          <div class="hero__frame"></div>
-        </div>
-      </div>
-    </section>
+    <!--
+      =====================================================
+      SECTION: METHODOLOGY / PHILOSOPHY
+      Source file: /sections/methodology.html
+      =====================================================
+    -->
+    <!-- PASTE methodology.html HERE -->
 
-    <!-- =========================
-         Proof / Value highlights
-         ========================= -->
-    <section class="proof" aria-label="What makes these kits different">
-      <div class="container">
-        <div class="section-head">
-          <h2 class="section-title">Built like a product.</h2>
-          <p class="section-sub">
-            Tight scope. Predictable behavior. Clean install. Designed to be trusted.
-          </p>
-        </div>
 
-        <div class="grid grid--3">
-          <article class="card">
-            <h3 class="card__title">Offline-first</h3>
-            <p class="card__text">Works without internet. Keeps operating when networks fail.</p>
-          </article>
+    <!--
+      =====================================================
+      SECTION: ENGAGEMENT / CTA
+      Source file: /sections/engagement.html
+      =====================================================
+    -->
+    <!-- PASTE engagement.html HERE -->
 
-          <article class="card">
-            <h3 class="card__title">Private by default</h3>
-            <p class="card__text">Your prompts and files stay local. No “helpful” uploads.</p>
-          </article>
-
-          <article class="card">
-            <h3 class="card__title">Operational clarity</h3>
-            <p class="card__text">Straightforward setup, updates, and rollback strategy.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- =========================
-         Kits (Product cards)
-         ========================= -->
-    <section class="kits" id="kits" aria-label="Local AI Kits">
-      <div class="container">
-        <div class="section-head">
-          <h2 class="section-title">Choose a kit.</h2>
-          <p class="section-sub">Three builds. Each one is practical, not experimental.</p>
-        </div>
-
-        <div class="grid grid--3">
-          <!-- Kit 1 -->
-          <article class="product">
-            <div class="product__top">
-              <h3 class="product__name">Workstation Kit</h3>
-              <p class="product__tag">Windows • Dual-GPU</p>
-            </div>
-
-            <p class="product__desc">
-              For professionals who want speed, privacy, and full control — on a desktop-class machine.
-            </p>
-
-            <ul class="list">
-              <li>Offline model runtime</li>
-              <li>GPU-accelerated inference</li>
-              <li>Local API endpoints (optional)</li>
-              <li>Backup + restore plan</li>
-            </ul>
-
-            <div class="product__cta">
-              <a class="btn btn--primary btn--full" href="#contact">Request this kit</a>
-              <span class="hint">Best for: creators, engineers, analysts</span>
-            </div>
-          </article>
-
-          <!-- Kit 2 (featured) -->
-          <article class="product product--featured" aria-label="Featured kit">
-            <div class="product__badge">Most requested</div>
-
-            <div class="product__top">
-              <h3 class="product__name">School Kit</h3>
-              <p class="product__tag">Offline • Classroom-safe</p>
-            </div>
-
-            <p class="product__desc">
-              A controlled environment for learning and assistance — designed for predictable behavior and easy admin.
-            </p>
-
-            <ul class="list">
-              <li>Local content boundaries</li>
-              <li>Multi-user access patterns</li>
-              <li>Simple device management</li>
-              <li>Documentation for staff</li>
-            </ul>
-
-            <div class="product__cta">
-              <a class="btn btn--primary btn--full" href="#contact">Request this kit</a>
-              <span class="hint">Best for: schools, labs, training rooms</span>
-            </div>
-          </article>
-
-          <!-- Kit 3 -->
-          <article class="product">
-            <div class="product__top">
-              <h3 class="product__name">Edge Kit</h3>
-              <p class="product__tag">Raspberry Pi • Small footprint</p>
-            </div>
-
-            <p class="product__desc">
-              For lightweight local tasks, demos, and constrained environments — where silence and simplicity matter.
-            </p>
-
-            <ul class="list">
-              <li>Low-power operation</li>
-              <li>Offline-first configuration</li>
-              <li>Local web interface</li>
-              <li>Repeatable imaging</li>
-            </ul>
-
-            <div class="product__cta">
-              <a class="btn btn--primary btn--full" href="#contact">Request this kit</a>
-              <span class="hint">Best for: kiosks, demos, field use</span>
-            </div>
-          </article>
-        </div>
-
-        <!-- Small note under products (short, calm) -->
-        <div class="note">
-          <p>
-            These are pre-built system configurations delivered as a complete, documented setup.
-            Hardware can be provided or you can bring your own.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- =========================
-         How it works
-         ========================= -->
-    <section class="how" id="how" aria-label="How EpicWorks kits work">
-      <div class="container">
-        <div class="section-head">
-          <h2 class="section-title">How it works.</h2>
-          <p class="section-sub">A calm process. Clear outcomes. No surprises.</p>
-        </div>
-
-        <div class="steps">
-          <div class="step">
-            <div class="step__num">01</div>
-            <div class="step__body">
-              <h3 class="step__title">Pick a kit</h3>
-              <p class="step__text">Choose the environment. Define offline needs and constraints.</p>
-            </div>
-          </div>
-
-          <div class="step">
-            <div class="step__num">02</div>
-            <div class="step__body">
-              <h3 class="step__title">Receive the build</h3>
-              <p class="step__text">You get a clean install plan, documentation, and a predictable configuration.</p>
-            </div>
-          </div>
-
-          <div class="step">
-            <div class="step__num">03</div>
-            <div class="step__body">
-              <h3 class="step__title">Run locally</h3>
-              <p class="step__text">Operate offline. Keep data in-house. Update on your schedule.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="split">
-          <div class="panel">
-            <h3 class="panel__title">What you get</h3>
-            <ul class="list list--tight">
-              <li>Configured runtime + models (per kit)</li>
-              <li>Local-first defaults and privacy posture</li>
-              <li>Setup checklist + rollback steps</li>
-              <li>Operations notes: updates, backups, storage</li>
-            </ul>
-          </div>
-
-          <div class="panel">
-            <h3 class="panel__title">What you don’t get</h3>
-            <ul class="list list--tight">
-              <li>No forced accounts</li>
-              <li>No cloud dependency</li>
-              <li>No noisy “growth” tooling</li>
-              <li>No endless dashboards</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- =========================
-         Use cases
-         ========================= -->
-    <section class="usecases" id="usecases" aria-label="Use cases">
-      <div class="container">
-        <div class="section-head">
-          <h2 class="section-title">Where it fits.</h2>
-          <p class="section-sub">Practical environments that value control and reliability.</p>
-        </div>
-
-        <div class="grid grid--3">
-          <article class="case">
-            <h3 class="case__title">Engineering & ops</h3>
-            <p class="case__text">Local assistance for docs, analysis, and internal workflows.</p>
-          </article>
-
-          <article class="case">
-            <h3 class="case__title">Parents & home</h3>
-            <p class="case__text">Private help for learning and planning — without sending data out.</p>
-          </article>
-
-          <article class="case">
-            <h3 class="case__title">Schools</h3>
-            <p class="case__text">Classroom-safe AI under local control, with admin-friendly operation.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- =========================
-         Specs / Principles
-         ========================= -->
-    <section class="specs" id="specs" aria-label="Technical principles">
-      <div class="container">
-        <div class="section-head">
-          <h2 class="section-title">Principles.</h2>
-          <p class="section-sub">Clear design rules that keep the system dependable.</p>
-        </div>
-
-        <div class="grid grid--2">
-          <article class="spec-card">
-            <h3 class="spec-card__title">Local by default</h3>
-            <p class="spec-card__text">Network is optional. The system is useful on day one, offline.</p>
-          </article>
-
-          <article class="spec-card">
-            <h3 class="spec-card__title">Predictable behavior</h3>
-            <p class="spec-card__text">Narrow scope. Fewer moving parts. Clear failure modes.</p>
-          </article>
-
-          <article class="spec-card">
-            <h3 class="spec-card__title">Operational hygiene</h3>
-            <p class="spec-card__text">Backups, updates, and rollback are part of the product — not an afterthought.</p>
-          </article>
-
-          <article class="spec-card">
-            <h3 class="spec-card__title">Hardware-realistic</h3>
-            <p class="spec-card__text">Built for devices you actually own: workstations, small boards, labs.</p>
-          </article>
-        </div>
-
-        <!-- Small, premium “spec strip” -->
-        <div class="strip" aria-label="Quick specifications">
-          <div class="strip__item">
-            <span class="strip__k">Delivery</span>
-            <span class="strip__v">Documented build</span>
-          </div>
-          <div class="strip__item">
-            <span class="strip__k">Mode</span>
-            <span class="strip__v">Offline-first</span>
-          </div>
-          <div class="strip__item">
-            <span class="strip__k">Data</span>
-            <span class="strip__v">Stays local</span>
-          </div>
-          <div class="strip__item">
-            <span class="strip__k">Updates</span>
-            <span class="strip__v">On your schedule</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- =========================
-         FAQ
-         ========================= -->
-    <section class="faq" id="faq" aria-label="Frequently asked questions">
-      <div class="container">
-        <div class="section-head">
-          <h2 class="section-title">FAQ.</h2>
-          <p class="section-sub">Short answers. Clear expectations.</p>
-        </div>
-
-        <div class="faq__grid">
-          <details class="qa">
-            <summary class="qa__q">Is this a cloud service?</summary>
-            <p class="qa__a">No. These are offline-first configurations designed to run locally on your hardware.</p>
-          </details>
-
-          <details class="qa">
-            <summary class="qa__q">Do I need an account?</summary>
-            <p class="qa__a">No forced accounts. Access depends on the kit and your environment.</p>
-          </details>
-
-          <details class="qa">
-            <summary class="qa__q">Can you provide hardware?</summary>
-            <p class="qa__a">Yes, or you can bring your own. The kits are built to be hardware-realistic.</p>
-          </details>
-
-          <details class="qa">
-            <summary class="qa__q">What about updates?</summary>
-            <p class="qa__a">Updates are optional and controlled. You choose when to change the system.</p>
-          </details>
-
-          <details class="qa">
-            <summary class="qa__q">Is this safe for a school environment?</summary>
-            <p class="qa__a">The School Kit is designed around local control, boundaries, and admin-friendly operation.</p>
-          </details>
-
-          <details class="qa">
-            <summary class="qa__q">Can it run without internet?</summary>
-            <p class="qa__a">Yes. Offline is a baseline requirement across all kits.</p>
-          </details>
-        </div>
-      </div>
-    </section>
-
-    <!-- =========================
-         Contact / CTA
-         ========================= -->
-    <section class="contact" id="contact" aria-label="Request access">
-      <div class="container">
-        <div class="cta">
-          <div class="cta__copy">
-            <h2 class="cta__title">Request access.</h2>
-            <p class="cta__text">
-              Tell us your environment and constraints. We’ll suggest the cleanest kit.
-            </p>
-          </div>
-
-          <!-- No JS form: posts to an email service or Cloudflare Forms endpoint if you add one.
-               For now, this is a static template. -->
-          <form class="form" method="post" action="#">
-            <div class="form__row">
-              <label class="field">
-                <span class="field__label">Name</span>
-                <input class="field__input" type="text" name="name" placeholder="Your name" autocomplete="name" />
-              </label>
-
-              <label class="field">
-                <span class="field__label">Email</span>
-                <input class="field__input" type="email" name="email" placeholder="you@company.com" autocomplete="email" />
-              </label>
-            </div>
-
-            <label class="field">
-              <span class="field__label">What are you building?</span>
-              <textarea class="field__input field__input--area" name="message" rows="4"
-                placeholder="Example: Offline AI for a classroom lab (20 seats). Needs local admin control."></textarea>
-            </label>
-
-            <div class="form__footer">
-              <button class="btn btn--primary" type="submit">Send request</button>
-              <p class="fineprint">No spam. No tracking pixels. Just a reply.</p>
-            </div>
-          </form>
-        </div>
-      </div>
-    </section>
-
-    <!-- =========================
-         Footer
-         ========================= -->
-    <footer class="footer" aria-label="Footer">
-      <div class="container footer__inner">
-        <div class="footer__left">
-          <a class="brand brand--footer" href="#top">
-            <img class="brand__logo" src="logo_v4.png" alt="EpicWorks logo" />
-            <span class="brand__name">EpicWorks</span>
-          </a>
-          <p class="footer__note">Local AI Kits. Offline-first. Calmly engineered.</p>
-        </div>
-
-        <div class="footer__right">
-          <a class="footer__link" href="#kits">Kits</a>
-          <a class="footer__link" href="#how">How it works</a>
-          <a class="footer__link" href="#specs">Principles</a>
-          <a class="footer__link" href="#faq">FAQ</a>
-        </div>
-      </div>
-
-      <div class="container footer__bottom">
-        <span>© <span id="year">2026</span> EpicWorks</span>
-        <span class="footer__sep">•</span>
-        <span>Built for Cloudflare Pages</span>
-      </div>
-
-      <!-- No JS allowed; year is static. Edit manually if desired. -->
-    </footer>
   </main>
+
+  <!-- =====================================================
+       GLOBAL FOOTER
+       - Exists once
+       - No section-specific logic
+       ===================================================== -->
+  <footer class="site-footer">
+    <div class="container footer__inner">
+
+      <div class="footer__brand">
+        <img
+          src="assets/logo.png"
+          alt="EpicWorks logo"
+          class="brand__logo"
+        />
+        <p class="footer__tagline">
+          Secure, local-first AI infrastructure.<br />
+          Calmly engineered. Built to last.
+        </p>
+      </div>
+
+      <nav class="footer__nav" aria-label="Footer navigation">
+        <a href="#about">About</a>
+        <a href="#offerings">Offerings</a>
+        <a href="#methodology">Methodology</a>
+        <a href="#engagement">Contact</a>
+      </nav>
+
+    </div>
+
+    <div class="footer__bottom">
+      <span>© 2026 EpicWorks</span>
+      <span class="footer__separator">•</span>
+      <span>Static site hosted on Cloudflare Pages</span>
+    </div>
+  </footer>
+
 </body>
 </html>
