@@ -1,71 +1,203 @@
-<!-- =====================================================
-     OFFERINGS SECTION
-     File: /sections/offerings.html
-     Purpose:
-     - Clearly describe what EpicWorks provides
-     - Productized, not vague consultancy
-     ===================================================== -->
-<section id="offerings" class="section section--offerings">
-  <div class="container">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EpicWorks — Offerings</title>
 
-    <header class="section__header">
-      <h2 class="section__title">Offerings</h2>
-      <p class="section__subtitle">
+  <!-- =====================================================
+       Offerings section — iframe-isolated styles
+       ===================================================== -->
+  <style>
+    :root {
+      --bg: #fbfbfa;
+      --surface: #ffffff;
+      --text: #141414;
+      --text-muted: #4b4b4b;
+      --line: rgba(20,20,20,0.12);
+      --accent: #1f3a5f;
+
+      --radius: 20px;
+      --max-width: 1120px;
+
+      --space-sm: 16px;
+      --space-md: 32px;
+      --space-lg: 64px;
+      --space-xl: 96px;
+
+      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+    }
+
+    body {
+      padding: var(--space-xl) var(--space-md);
+    }
+
+    .offerings {
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+
+    header {
+      max-width: 64ch;
+      margin-bottom: var(--space-lg);
+    }
+
+    h2 {
+      font-size: clamp(28px, 3vw, 36px);
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      margin: 0 0 var(--space-sm);
+    }
+
+    .subtitle {
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--text-muted);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-md);
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: var(--space-md);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    .card h3 {
+      margin: 0;
+      font-size: 18px;
+      letter-spacing: -0.02em;
+    }
+
+    .card p {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--text-muted);
+    }
+
+    .list {
+      margin: var(--space-sm) 0 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 10px;
+    }
+
+    .list li {
+      position: relative;
+      padding-left: 18px;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 8px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    /* =========================
+       Responsive
+       ========================= */
+    @media (max-width: 900px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: var(--space-lg) var(--space-sm);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <section class="offerings" aria-labelledby="offerings-title">
+
+    <header>
+      <h2 id="offerings-title">Offerings</h2>
+      <p class="subtitle">
         Practical systems and guidance for deploying AI locally,
         securely, and responsibly.
       </p>
     </header>
 
-    <div class="offerings__grid">
+    <div class="grid">
 
-      <!-- Offering 1 -->
-      <article class="offering">
-        <h3 class="offering__title">Local AI system design</h3>
-        <p class="offering__text">
+      <article class="card">
+        <h3>Local AI system design</h3>
+        <p>
           Architecture and implementation of AI systems that run
-          entirely on your own hardware — from workstations to small
-          lab deployments.
+          entirely on your own hardware — from individual
+          workstations to small lab environments.
         </p>
-        <ul class="offering__list">
+        <ul class="list">
           <li>Hardware-aware model selection</li>
           <li>Offline-first configuration</li>
           <li>Clear operational boundaries</li>
         </ul>
       </article>
 
-      <!-- Offering 2 -->
-      <article class="offering">
-        <h3 class="offering__title">Educational & school deployments</h3>
-        <p class="offering__text">
-          Controlled AI environments suitable for classrooms and
-          learning spaces, designed for safety, predictability,
-          and ease of supervision.
+      <article class="card">
+        <h3>Educational & school deployments</h3>
+        <p>
+          Controlled AI environments designed for classrooms and
+          learning spaces, with safety, predictability, and
+          supervision as first-class concerns.
         </p>
-        <ul class="offering__list">
+        <ul class="list">
           <li>Local-only data flow</li>
           <li>Age-appropriate constraints</li>
-          <li>Documentation for educators</li>
+          <li>Clear educator documentation</li>
         </ul>
       </article>
 
-      <!-- Offering 3 -->
-      <article class="offering">
-        <h3 class="offering__title">Advisory & system audits</h3>
-        <p class="offering__text">
+      <article class="card">
+        <h3>Advisory & system audits</h3>
+        <p>
           Independent review of existing AI setups, focusing on
           privacy, reliability, and long-term maintainability.
         </p>
-        <ul class="offering__list">
-          <li>Architecture review</li>
-          <li>Risk & dependency analysis</li>
-          <li>Practical improvement roadmap</li>
+        <ul class="list">
+          <li>Architecture and dependency review</li>
+          <li>Risk and trust boundary analysis</li>
+          <li>Actionable improvement roadmap</li>
         </ul>
       </article>
 
     </div>
 
-  </div>
-</section>
+  </section>
+
+</body>
+</html>
 <!-- =====================================================
      END OFFERINGS SECTION
      ===================================================== -->
