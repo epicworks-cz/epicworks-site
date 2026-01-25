@@ -1,67 +1,173 @@
-<!-- =====================================================
-     ABOUT SECTION
-     File: /sections/about.html
-     Purpose:
-     - Explain what EpicWorks is (and is not)
-     - Establish trust and intent
-     - Filter out wrong-fit expectations
-     ===================================================== -->
-<section id="about" class="section section--about">
-  <div class="container">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EpicWorks — About</title>
 
-    <header class="section__header">
-      <h2 class="section__title">What EpicWorks is about</h2>
-      <p class="section__subtitle">
+  <!-- =====================================================
+       About section — iframe-isolated styles
+       ===================================================== -->
+  <style>
+    :root {
+      --bg: #fbfbfa;
+      --surface: #ffffff;
+      --text: #141414;
+      --text-muted: #4b4b4b;
+      --line: rgba(20,20,20,0.12);
+
+      --radius: 20px;
+      --max-width: 1120px;
+
+      --space-sm: 16px;
+      --space-md: 32px;
+      --space-lg: 64px;
+      --space-xl: 96px;
+
+      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+    }
+
+    body {
+      padding: var(--space-xl) var(--space-md);
+    }
+
+    .about {
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+
+    header {
+      max-width: 64ch;
+      margin-bottom: var(--space-lg);
+    }
+
+    h2 {
+      font-size: clamp(28px, 3vw, 36px);
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      margin: 0 0 var(--space-sm);
+    }
+
+    .subtitle {
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--text-muted);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-md);
+    }
+
+    .block {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: var(--space-md);
+    }
+
+    .block h3 {
+      margin: 0 0 var(--space-sm);
+      font-size: 16px;
+      letter-spacing: -0.02em;
+    }
+
+    .block p {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--text-muted);
+    }
+
+    .block p + p {
+      margin-top: var(--space-sm);
+    }
+
+    /* =========================
+       Responsive
+       ========================= */
+    @media (max-width: 900px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: var(--space-lg) var(--space-sm);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <section class="about" aria-labelledby="about-title">
+
+    <header>
+      <h2 id="about-title">What EpicWorks is about</h2>
+      <p class="subtitle">
         A consultancy and product studio focused on dependable,
-        local-first AI systems — not hype.
+        local-first AI systems — designed for real environments,
+        not demos.
       </p>
     </header>
 
-    <div class="about__grid">
+    <div class="grid">
 
-      <!-- Column 1 -->
-      <div class="about__block">
-        <h3 class="about__heading">The problem</h3>
-        <p class="about__text">
-          Many AI solutions today assume permanent connectivity,
-          external services, opaque data flows, and rapid iteration
-          at the cost of stability.
+      <div class="block">
+        <h3>The problem</h3>
+        <p>
+          Most AI solutions today assume constant connectivity,
+          opaque third-party services, and rapid iteration at
+          the expense of stability.
         </p>
-        <p class="about__text">
+        <p>
           For schools, small teams, and serious users, this creates
-          risk: loss of control, unclear boundaries, and systems that
-          are hard to trust or maintain.
+          risk: loss of control, unclear boundaries, and systems
+          that are difficult to trust long-term.
         </p>
       </div>
 
-      <!-- Column 2 -->
-      <div class="about__block">
-        <h3 class="about__heading">The approach</h3>
-        <p class="about__text">
-          EpicWorks designs AI infrastructure that runs where you
-          actually need it — on your own hardware, inside your own
-          environment, under your own rules.
+      <div class="block">
+        <h3>The approach</h3>
+        <p>
+          EpicWorks designs AI infrastructure that runs where it
+          actually needs to live — on your own hardware, inside
+          your own environment, under your rules.
         </p>
-        <p class="about__text">
-          Every system is scoped, documented, and engineered to behave
-          predictably over time.
+        <p>
+          Every system is scoped carefully, documented clearly,
+          and engineered to behave predictably over time.
         </p>
       </div>
 
-      <!-- Column 3 -->
-      <div class="about__block">
-        <h3 class="about__heading">The result</h3>
-        <p class="about__text">
-          You get AI capabilities without surrendering privacy,
+      <div class="block">
+        <h3>The result</h3>
+        <p>
+          You gain AI capabilities without surrendering privacy,
           autonomy, or operational clarity.
         </p>
-        <p class="about__text">
+        <p>
           No forced cloud dependency. No unnecessary complexity.
-          Just systems that work — and keep working.
+          Just systems that work — and continue working.
         </p>
       </div>
 
     </div>
 
-  </div>
-</section>
+  </section>
+
+</body>
+</html>
