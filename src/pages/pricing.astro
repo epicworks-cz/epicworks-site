@@ -1,0 +1,127 @@
+---
+import Base from '../layouts/Base.astro';
+const check = '<svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+---
+<Base
+  title="EpicScan pricing: prepaid credit packs, no subscriptions"
+  description="Prepaid credits from €25. No seats, no monthly fees. Each scan deducts only what it cost, never more than your cap."
+  path="/pricing"
+>
+  <section class="page-hero">
+    <div class="container hero-inner" style="gap: 20px; max-width: 900px;">
+      <h1 class="h1">Transparent credit packs. <span class="grad" style="display: inline;">Zero subscription fees.</span></h1>
+      <p class="lead">Planned prepaid packs with no subscription and no seat fees. Each scan deducts only what it actually cost, never more than the cap you set. A failed scan is never charged.</p>
+      <p class="notice" style="padding: 8px 18px; border-radius: 999px;">Draft early-access prices. Prices and terms may change before launch. Nothing can be bought yet.</p>
+    </div>
+  </section>
+
+  <section style="padding: 24px 0 96px;">
+    <div class="container" style="max-width: 1188px;">
+      <div class="grid" style="--min: 300px; gap: 24px;">
+        <article class="card" style="padding: 32px; gap: 20px;">
+          <div><h2 style="font-size: 21px;">Developer Starter</h2><p class="muted" style="font-size: 14px;">For individuals and open-source contributors</p></div>
+          <p><span class="price">€25</span> <span class="muted" style="font-size: 14px;">prepaid credit</span></p>
+          <ul class="checks" style="flex: 1;">
+            <li><Fragment set:html={check} /><strong style="color: var(--text-strong);">No monthly fee</strong></li>
+            <li><Fragment set:html={check} /><span>Scans per pack depend on the caps you set; real costs published after benchmarks</span></li>
+            <li><Fragment set:html={check} /><span>The <code style="color: var(--indigo-soft); font-size: 13px;">@epicscan</code> command <span style="color: #c4b5fd;">(roadmap)</span></span></li>
+          </ul>
+          <a class="btn btn-secondary" href="/early-access">Request early access</a>
+        </article>
+        <article class="card card-highlight" style="padding: 32px; gap: 20px; position: relative;">
+          <span class="badge-grad" style="position: absolute; top: -12px; left: 50%; transform: translateX(-50%);">Recommended</span>
+          <div><h2 style="font-size: 21px;">Team Shared Pool</h2><p class="muted" style="font-size: 14px;">For engineering teams</p></div>
+          <p><span class="price">€250</span> <span class="muted" style="font-size: 14px;">prepaid credit</span></p>
+          <ul class="checks" style="flex: 1;">
+            <li><Fragment set:html={check} /><strong style="color: var(--text-strong);">No platform or seat fees</strong></li>
+            <li><Fragment set:html={check} /><span>One prepaid balance for the whole team</span></li>
+            <li><Fragment set:html={check} /><span>The <code style="color: var(--indigo-soft); font-size: 13px;">--max-delay</code> deadline flag <span style="color: #c4b5fd;">(roadmap)</span></span></li>
+            <li><Fragment set:html={check} /><span>GitLab and GitHub integration <span style="color: #93c5fd;">(in testing)</span></span></li>
+          </ul>
+          <a class="btn btn-primary" href="/early-access">Request early access</a>
+        </article>
+        <article class="card" style="padding: 32px; gap: 20px;">
+          <div><h2 style="font-size: 21px;">Enterprise / Self-hosted</h2><p class="muted" style="font-size: 14px;">For teams that run their own infrastructure</p></div>
+          <p><span class="price">Custom</span></p>
+          <ul class="checks" style="flex: 1;">
+            <li><Fragment set:html={check} /><span>Everything in Team Shared Pool</span></li>
+            <li><Fragment set:html={check} /><span>Your own model endpoint (vLLM, Ollama or any OpenAI-compatible API)</span></li>
+            <li><Fragment set:html={check} /><span>No markup on compute you run yourself</span></li>
+            <li><Fragment set:html={check} /><span>On-premise runners and invoice billing in EUR</span></li>
+          </ul>
+          <a class="btn btn-secondary" href="mailto:scan@epicworks.cz?subject=EpicScan%20self-hosted">Contact us</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="calculator" class="section section-alt">
+    <div class="container" style="max-width: 1088px;">
+      <div class="section-head">
+        <h2 class="h2">Credit calculator</h2>
+        <p>Estimate a month of scanning from your own numbers.</p>
+      </div>
+      <form class="panel split" id="calc" aria-label="Credit calculator">
+        <div class="grid" style="--min: 200px; gap: 18px; align-content: start;">
+          <div class="field"><label for="c-devs">Developers on the team</label><input class="input" id="c-devs" type="number" inputmode="numeric" min="1" step="1" value="8" /></div>
+          <div class="field"><label for="c-prs">Pull requests per developer per month</label><input class="input" id="c-prs" type="number" inputmode="numeric" min="0" step="1" value="12" /></div>
+          <div class="field"><label for="c-cap">Typical cap per scan (€)</label><input class="input" id="c-cap" type="number" inputmode="decimal" min="0" step="0.05" value="0.50" /></div>
+          <div class="field"><label for="c-seat">Your current price per seat per month (€, optional)</label><input class="input" id="c-seat" type="number" inputmode="decimal" min="0" step="1" placeholder="e.g. 30" /></div>
+        </div>
+        <div class="result-rows" style="align-self: center;">
+          <div class="result-row"><span>Scans per month</span><output id="r-scans" for="c-devs c-prs">96</output></div>
+          <div class="result-row"><span>Most you would spend on EpicScan</span><output id="r-max" for="c-devs c-prs c-cap" style="color: var(--sky);">€48.00</output></div>
+          <div class="result-row"><span>Your current per-seat spend</span><output id="r-seat" for="c-devs c-seat">Not entered</output></div>
+          <div class="result-row total"><span>Difference per month</span><output id="r-diff" for="c-devs c-prs c-cap c-seat">Enter a seat price</output></div>
+          <p class="muted" style="font-size: 13px; margin-top: 8px;">This is a worst case: it assumes every scan uses its full cap. Real scans usually cost less.</p>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container" style="max-width: 868px;">
+      <h2 class="h2" style="text-align: center; margin-bottom: 32px;">Credit questions</h2>
+      <div class="faq">
+        <details><summary>Do credits expire?</summary><p>The plan is 24 months from purchase, with an email reminder before any credit expires. Final terms are published before anything goes on sale.</p></details>
+        <details><summary>What happens when my balance runs out?</summary><p>New scans do not start. The bot replies on the pull request and asks you to top up. There is no overdraft.</p></details>
+        <details><summary>Can I get an invoice?</summary><p>Yes. Every top-up comes with an invoice from Epicworks s.r.o. We are not a VAT payer, so no VAT is added.</p></details>
+        <details><summary>Can I set a team budget?</summary><p>Team-level monthly caps are on the roadmap.</p></details>
+        <details><summary>Refunds?</summary><p>The plan: within 14 days of purchase, the unused part of that purchase is refunded on request. After that, credit is not refundable but stays usable until it expires.</p></details>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const $ = (id: string) => document.getElementById(id) as HTMLInputElement;
+  const out = (id: string) => document.getElementById(id) as HTMLOutputElement;
+  const num = (id: string) => {
+    const n = parseFloat($(id).value);
+    return Number.isFinite(n) && n > 0 ? n : 0;
+  };
+  const eur = (n: number) => '€' + n.toLocaleString('en-IE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+  function update() {
+    const devs = num('c-devs');
+    const scans = Math.round(devs * num('c-prs'));
+    const max = scans * num('c-cap');
+    const seat = num('c-seat');
+    out('r-scans').value = scans.toLocaleString('en-IE');
+    out('r-max').value = eur(max);
+    if (seat > 0) {
+      const seatSpend = devs * seat;
+      const diff = seatSpend - max;
+      out('r-seat').value = eur(seatSpend);
+      out('r-diff').value = diff >= 0 ? `${eur(diff)} less` : `${eur(-diff)} more`;
+    } else {
+      out('r-seat').value = 'Not entered';
+      out('r-diff').value = 'Enter a seat price';
+    }
+  }
+
+  const calc = document.getElementById('calc');
+  calc?.addEventListener('input', update);
+  calc?.addEventListener('submit', (e) => e.preventDefault());
+  update();
+</script>

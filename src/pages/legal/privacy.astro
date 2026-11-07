@@ -1,0 +1,58 @@
+---
+import Base from '../../layouts/Base.astro';
+// Full text written in Pass 9 (2026-11-07). Recommended: review by a Czech data-protection lawyer before launch.
+const updated = '7 November 2026';
+---
+<Base
+  title="Privacy policy · EpicScan by Epicworks s.r.o."
+  description="How Epicworks s.r.o. handles personal data collected on epicworks.cz and through the EpicScan early-access form."
+  path="/legal/privacy"
+>
+  <section class="page-hero">
+    <div class="prose container">
+      <h1 class="h1">Privacy policy</h1>
+      <p class="muted">Last updated: {updated}</p>
+      <p class="notice"><strong>Pre-launch version.</strong> This policy covers the website and the early-access form. It will be reviewed again before hosted scans or credit sales open.</p>
+
+      <h2>1. Who is responsible</h2>
+      <p>The controller of your personal data is <strong>Epicworks s.r.o.</strong>, Lidická 700/19, Veveří, 602 00 Brno, Czech Republic, IČO 05909104, registered with the Regional Court in Brno, section C, file 98895. Contact for all privacy questions: <a href="mailto:scan@epicworks.cz">scan@epicworks.cz</a>.</p>
+
+      <h2>2. What we collect and why</h2>
+      <div class="scroll-x">
+        <table class="table">
+          <thead><tr><th scope="col">Data</th><th scope="col">Purpose</th><th scope="col">Legal basis (GDPR)</th><th scope="col">Kept for</th></tr></thead>
+          <tbody>
+            <tr><td>Name, email address, code platform (GitHub, GitLab or both), time of request</td><td>To contact you about EpicScan early access</td><td>Your consent, Art. 6(1)(a)</td><td>Until early access ends, and at most 12 months from your request</td></tr>
+            <tr><td>Technical signals from your browser checked by the spam filter (Cloudflare Turnstile), only when you use the form</td><td>To stop automated spam</td><td>Legitimate interest in protecting the form, Art. 6(1)(f)</td><td>Not stored by us; processed by Cloudflare for the check</td></tr>
+            <tr><td>Standard server logs: IP address, time, requested page, browser type</td><td>Security, abuse prevention and fault finding</td><td>Legitimate interest, Art. 6(1)(f)</td><td>As set by our hosting provider, typically a few days</td></tr>
+            <tr><td>Aggregated, cookie-free visit statistics (if enabled)</td><td>To understand how the site is used</td><td>Legitimate interest, Art. 6(1)(f)</td><td>Aggregated only; no profile of you is built</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Giving us your details is voluntary. Without them we cannot contact you about early access. We do not sell your data, use it for advertising, or make automated decisions about you.</p>
+
+      <h2>3. Cookies and tracking</h2>
+      <p>This site sets no cookies and uses no browser storage. It contains no advertising or social-media trackers. Fonts and all site files are served from our own domain.</p>
+
+      <h2>4. Who processes data for us</h2>
+      <ul>
+        <li><strong>Cloudflare, Inc.</strong>: website hosting, the form function, spam check (Turnstile) and, if enabled, cookie-free web analytics.</li>
+        <li><strong>Mailgun Technologies, Inc.</strong>: delivers early-access requests to our inbox.</li>
+      </ul>
+      <p>Both act on our instructions under data processing agreements. Both are based in the United States, so your data may be transferred there; such transfers rely on the EU-U.S. Data Privacy Framework or on the European Commission's standard contractual clauses.</p>
+
+      <h2>5. Your rights</h2>
+      <p>You can ask us at any time for access to your data, correction, deletion, restriction of processing, a copy in a portable format, or object to processing based on legitimate interest. You can withdraw your consent at any time by emailing <a href="mailto:scan@epicworks.cz">scan@epicworks.cz</a>; this does not affect processing before the withdrawal. We answer within one month.</p>
+      <p>You also have the right to complain to the Czech supervisory authority: <strong>Úřad pro ochranu osobních údajů</strong>, Pplk. Sochora 27, 170 00 Praha 7, <a href="https://uoou.gov.cz" rel="noopener">uoou.gov.cz</a>.</p>
+
+      <h2>6. Code you send for scanning</h2>
+      <p>The early-access form collects no source code. When hosted scans open, code you submit will be processed only for the scan you request, on Mac Studio machines we own and operate in the Czech Republic, deleted when the scan ends and never used to train models. Separate scan terms will apply before that service starts.</p>
+
+      <h2>7. Security</h2>
+      <p>The site uses HTTPS only, strict security headers, and a spam filter on the form. Report security issues to <a href="mailto:scan@epicworks.cz">scan@epicworks.cz</a> (see <a href="/.well-known/security.txt">security.txt</a>).</p>
+
+      <h2>8. Changes</h2>
+      <p>We will update this page when our processing changes and show the date of the latest version at the top.</p>
+    </div>
+  </section>
+</Base>

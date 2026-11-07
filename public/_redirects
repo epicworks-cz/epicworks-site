@@ -1,0 +1,4 @@
+# Old iframe site sections (retired in the 2026 rebuild)
+/sections/*        /    301
+/index.html        /    301
+/api/contact       /early-access    302

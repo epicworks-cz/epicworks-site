@@ -1,0 +1,27 @@
+---
+interface Props {
+  path: string;
+}
+const { path } = Astro.props;
+const links = [
+  { href: '/#features', label: 'Features', match: '' },
+  { href: '/how-it-works', label: 'Command', match: '/how-it-works' },
+  { href: '/simulator', label: 'Simulator', match: '/simulator' },
+  { href: '/pricing', label: 'Pricing', match: '/pricing' },
+];
+---
+<header class="site-header">
+  <div class="container">
+    <a href="/" class="brand">
+      <img src="/logo-ew.png" alt="" width="36" height="36" />
+      <span class="brand-name">EpicScan</span>
+      <span class="tag-mono">Pay per scan</span>
+    </a>
+    <nav class="main-nav" aria-label="Main">
+      {links.map((l) => (
+        <a href={l.href} aria-current={l.match && path === l.match ? 'page' : undefined}>{l.label}</a>
+      ))}
+    </nav>
+    <a class="btn btn-primary" href="/early-access">Request early access</a>
+  </div>
+</header>

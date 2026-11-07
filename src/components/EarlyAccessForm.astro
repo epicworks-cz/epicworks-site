@@ -1,0 +1,162 @@
+---
+// Early-access form. Posts to the Pages Function /api/early-access.
+// Turnstile site key: PUBLIC_TURNSTILE_SITE_KEY at build time.
+// Fallback is Cloudflare's published always-pass TEST key, for local builds only.
+interface Props {
+  id: string;
+}
+const { id } = Astro.props;
+const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || '1x00000000000000000000AA';
+---
+<form class="form ea-form" id={id} method="post" action="/api/early-access" novalidate>
+  <div class="field">
+    <label for={`${id}-name`}>Name</label>
+    <input class="input" id={`${id}-name`} name="name" type="text" autocomplete="name" placeholder="Your name" required maxlength="120" aria-describedby={`${id}-name-err`} />
+    <span class="field-error" id={`${id}-name-err`} data-error-for="name" data-msg="Please enter your name." aria-live="polite"></span>
+  </div>
+  <div class="field">
+    <label for={`${id}-email`}>Work email</label>
+    <input class="input" id={`${id}-email`} name="email" type="email" autocomplete="email" placeholder="you@company.com" required maxlength="200" aria-describedby={`${id}-email-err`} />
+    <span class="field-error" id={`${id}-email-err`} data-error-for="email" data-msg="Please enter a valid email address." aria-live="polite"></span>
+  </div>
+  <div class="field">
+    <label for={`${id}-platform`}>Where is your code?</label>
+    <select class="input" id={`${id}-platform`} name="platform" required aria-describedby={`${id}-platform-err`}>
+      <option value="">Choose a platform</option>
+      <option value="github">GitHub</option>
+      <option value="gitlab">GitLab</option>
+      <option value="both">Both</option>
+    </select>
+    <span class="field-error" id={`${id}-platform-err`} data-error-for="platform" data-msg="Please choose a platform." aria-live="polite"></span>
+  </div>
+  <div class="hp" aria-hidden="true">
+    <label for={`${id}-website`}>Website</label>
+    <input id={`${id}-website`} name="website" type="text" tabindex="-1" autocomplete="off" />
+  </div>
+  <div class="field">
+    <label class="check" for={`${id}-consent`}>
+      <input id={`${id}-consent`} name="consent" type="checkbox" value="yes" required aria-describedby={`${id}-consent-err`} />
+      <span>I agree that Epicworks s.r.o. stores my details to contact me about EpicScan early access. <a href="/legal/privacy">Privacy policy</a></span>
+    </label>
+    <span class="field-error" id={`${id}-consent-err`} data-error-for="consent" data-msg="Please tick the box so we may contact you." aria-live="polite"></span>
+  </div>
+  <div class="cf-turnstile ea-captcha" data-sitekey={siteKey}></div>
+  <button class="btn btn-primary" type="submit" style="align-self: flex-start;">Request early access</button>
+  <p class="muted" style="font-size: 13px;">No newsletter, no tracking. One email when your platform is ready.</p>
+  <div class="form-status" role="status" aria-live="polite" hidden></div>
+</form>
+
+
+<script>
+  const MESSAGES: Record<string, string> = {
+    server: 'Something went wrong on our side. Please try again, or email scan@epicworks.cz.',
+    rate: 'Too many attempts. Please wait a minute and try again.',
+    spam: 'We could not verify the request. Please reload the page and try again.',
+  };
+  const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  function setError(form: HTMLFormElement, field: string, show: boolean) {
+    const el = form.querySelector<HTMLElement>(`[data-error-for="${field}"]`);
+    const input = form.elements.namedItem(field) as HTMLInputElement | null;
+    if (el) el.textContent = show ? el.dataset.msg || '' : '';
+    if (input) input.setAttribute('aria-invalid', show ? 'true' : 'false');
+  }
+
+  function validate(form: HTMLFormElement): boolean {
+    const data = new FormData(form);
+    const checks: Record<string, boolean> = {
+      name: String(data.get('name') || '').trim().length > 0,
+      email: EMAIL_RE.test(String(data.get('email') || '').trim()),
+      platform: ['github', 'gitlab', 'both'].includes(String(data.get('platform') || '')),
+      consent: data.get('consent') === 'yes',
+    };
+    let firstBad: string | null = null;
+    for (const [field, ok] of Object.entries(checks)) {
+      setError(form, field, !ok);
+      if (!ok && !firstBad) firstBad = field;
+    }
+    if (firstBad) (form.elements.namedItem(firstBad) as HTMLElement | null)?.focus();
+    return !firstBad;
+  }
+
+  function showStatus(form: HTMLFormElement, kind: 'ok' | 'error', html: string) {
+    const box = form.querySelector<HTMLElement>('.form-status');
+    if (!box) return;
+    box.dataset.kind = kind;
+    box.innerHTML = html;
+    box.hidden = false;
+  }
+
+  // Render Turnstile explicitly: the "flexible" widget needs 300 px, so narrow
+  // screens (320 px phones) get the compact widget instead (WCAG 1.4.10 reflow).
+  function renderCaptchas() {
+    const ts = (window as any).turnstile;
+    if (!ts) return;
+    document.querySelectorAll<HTMLElement>('.ea-captcha').forEach((box) => {
+      if (box.dataset.rendered) return;
+      box.dataset.rendered = '1';
+      ts.render(box, {
+        sitekey: box.dataset.sitekey,
+        theme: 'dark',
+        size: box.clientWidth >= 300 ? 'flexible' : 'compact',
+      });
+    });
+  }
+  // Load Turnstile (about 250 KB with its frame) only when a form is near the
+  // viewport or gets focus, so pages do not pay for it on first load.
+  let turnstileRequested = false;
+  function loadTurnstile() {
+    if (turnstileRequested) return;
+    turnstileRequested = true;
+    const s = document.createElement('script');
+    s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+    s.async = true;
+    s.addEventListener('load', renderCaptchas);
+    document.head.appendChild(s);
+  }
+  const forms = document.querySelectorAll<HTMLFormElement>('.ea-form');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      if (entries.some((e) => e.isIntersecting)) { loadTurnstile(); io.disconnect(); }
+    }, { rootMargin: '600px 0px' });
+    forms.forEach((f) => io.observe(f));
+  } else {
+    loadTurnstile();
+  }
+  forms.forEach((f) => f.addEventListener('focusin', loadTurnstile, { once: true }));
+
+  document.querySelectorAll<HTMLFormElement>('.ea-form').forEach((form) => {
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (!validate(form)) return;
+      const button = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+      const label = button?.textContent || '';
+      if (button) { button.disabled = true; button.textContent = 'Sending…'; }
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' },
+        });
+        if (res.ok) {
+          form.querySelectorAll('.field, .cf-turnstile, button, p.muted').forEach((el) => el.remove());
+          showStatus(form, 'ok', '<strong>You are on the list.</strong><br>Thanks, we have your request. We will email you from scan@epicworks.cz when EpicScan is ready for your platform.');
+          return;
+        }
+        const key = res.status === 429 ? 'rate' : res.status === 403 ? 'spam' : 'server';
+        if (res.status === 400) {
+          const body = await res.json().catch(() => ({}));
+          const fields: string[] = Array.isArray(body.fields) ? body.fields : [];
+          fields.forEach((f) => setError(form, f, true));
+          if (fields.length) return;
+        }
+        showStatus(form, 'error', MESSAGES[key]);
+        (window as any).turnstile?.reset?.();
+      } catch {
+        showStatus(form, 'error', MESSAGES.server);
+      } finally {
+        if (button && button.isConnected) { button.disabled = false; button.textContent = label; }
+      }
+    });
+  });
+</script>

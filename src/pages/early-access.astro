@@ -1,0 +1,21 @@
+---
+import Base from '../layouts/Base.astro';
+import EarlyAccessForm from '../components/EarlyAccessForm.astro';
+---
+<Base
+  title="Request early access to EpicScan"
+  description="Be first to try hosted EpicScan scans and the @epicscan comment command on GitHub or GitLab."
+  path="/early-access"
+>
+  <section class="page-hero" style="padding-bottom: 96px;">
+    <div class="container" style="max-width: 1148px;">
+      <div class="panel split">
+        <div class="stack">
+          <h1 class="h1" style="font-size: clamp(34px, 5vw, 52px);">Request early access</h1>
+          <p class="lead">Tell us where your code lives. We will email you when EpicScan is ready for your platform, and early members get the GitLab job and GitHub Action first.</p>
+        </div>
+        <EarlyAccessForm id="ea-page" />
+      </div>
+    </div>
+  </section>
+</Base>
