@@ -1,0 +1,165 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base
+  title="EpicScan simulator: see how a budget shapes a scan"
+  description="Type an @epicscan command and see the planned scan depth, steps and an illustrative cost. Nothing is scanned or charged."
+  path="/simulator"
+>
+  <section class="page-hero">
+    <div class="container hero-inner" style="gap: 20px;">
+      <h1 class="h1">Scan simulator</h1>
+      <p class="lead">Type a command and see how EpicScan would plan the scan. Nothing is scanned and nothing is charged.</p>
+      <p class="notice" style="padding: 8px 18px; border-radius: 999px;">Simulated. Costs are illustrative until real benchmarks are published.</p>
+    </div>
+  </section>
+
+  <section style="padding: 24px 0 96px;">
+    <div class="container" style="max-width: 1088px;">
+      <form class="panel split" id="sim" novalidate aria-label="Scan simulator">
+        <div class="stack" style="--gap: 18px;">
+          <div class="field">
+            <label for="s-cmd">Your command</label>
+            <input class="input mono" id="s-cmd" type="text" value="@epicscan €0.50 --max-delay 5m" placeholder="@epicscan €0.50 --max-delay 5m" spellcheck="false" autocomplete="off" aria-describedby="s-err" />
+            <span class="field-error" id="s-err" aria-live="polite"></span>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px;" role="group" aria-label="Example commands">
+            <button class="btn btn-secondary" type="button" data-preset="@epicscan €0.25" style="font-size: 14px; padding: 8px 14px;">Quick check</button>
+            <button class="btn btn-secondary" type="button" data-preset="@epicscan €0.50 --max-delay 5m" style="font-size: 14px; padding: 8px 14px;">Deep with deadline</button>
+            <button class="btn btn-secondary" type="button" data-preset="@epicscan €5.00 --depth deep" style="font-size: 14px; padding: 8px 14px;">Critical change</button>
+          </div>
+          <div class="field">
+            <label for="s-files">Changed files in this pull request: <output id="s-files-out" for="s-files">12</output></label>
+            <input id="s-files" type="range" min="1" max="200" value="12" style="accent-color: var(--indigo); min-height: 44px;" />
+          </div>
+          <div class="field">
+            <label for="s-lang">Main language (C/C++ gives the best results)</label>
+            <select class="input" id="s-lang">
+              <option value="c">C / C++</option>
+              <option value="rust">Rust</option>
+              <option value="go">Go</option>
+              <option value="python">Python</option>
+              <option value="js">JavaScript / TypeScript</option>
+              <option value="java">Java / Kotlin</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <button class="btn btn-primary" type="submit" style="align-self: flex-start;">Simulate scan</button>
+        </div>
+        <div class="stack" style="--gap: 14px; align-self: center;" aria-live="polite">
+          <div class="result-rows">
+            <div class="result-row"><span>Planned depth</span><span class="value" id="o-depth">Standard: context, scan, 5 triage rounds</span></div>
+            <div class="result-row"><span>Steps</span><span class="value" id="o-steps">Context · Scan · Triage · Report</span></div>
+            <div class="result-row"><span>Estimated cost</span><span class="value" id="o-cost" style="color: var(--sky);">€0.16 of €0.50 cap</span></div>
+            <div class="result-row"><span>Deadline</span><span class="value" id="o-deadline">Fits within 5 min</span></div>
+            <div class="result-row"><span>If time runs out</span><span class="value" id="o-partial">Partial report listing covered files</span></div>
+          </div>
+          <p class="notice" id="o-hint" hidden></p>
+          <p style="color: var(--text-body); font-size: 15px;">Want this on your real pull requests? <a href="/early-access">Request early access</a>.</p>
+        </div>
+      </form>
+    </div>
+  </section>
+</Base>
+
+<script>
+  // Illustrative cost model only. Calibrated to the example on the home page:
+  // 12 files cost about €0.041 for context and scan, each triage round about €0.024.
+  const PER_FILE = 0.0034;
+  const PER_ROUND = 0.024;
+  const MIN_AMOUNT = 0.1;
+  const MAX_AMOUNT = 50;
+
+  const el = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
+  const cmd = el<HTMLInputElement>('s-cmd');
+  const files = el<HTMLInputElement>('s-files');
+  const lang = el<HTMLSelectElement>('s-lang');
+  const err = el<HTMLSpanElement>('s-err');
+  const eur = (n: number) => '€' + n.toFixed(2);
+
+  type Plan = { amount: number; delayMin: number | null; depth: 'quick' | 'standard' | 'deep' };
+
+  function parse(text: string): Plan | string {
+    const t = text.trim();
+    const m = t.match(/^@epicscan\s+€?\s*(\d+(?:[.,]\d{1,2})?)(.*)$/i);
+    if (!m) return 'Start with @epicscan followed by an amount, for example @epicscan €0.50.';
+    const amount = parseFloat(m[1].replace(',', '.'));
+    if (!(amount >= MIN_AMOUNT && amount <= MAX_AMOUNT)) return 'Enter an amount between 0.10 and 50.00 euros.';
+    const plan: Plan = { amount, delayMin: null, depth: amount <= 0.3 ? 'quick' : 'standard' };
+    const rest = m[2].trim().split(/\s+/).filter(Boolean);
+    for (let i = 0; i < rest.length; i++) {
+      const opt = rest[i];
+      const val = rest[i + 1];
+      if (opt === '--max-delay') {
+        const d = (val || '').match(/^(\d+)(s|m|h)$/);
+        if (!d) return 'Use a time such as 90s, 5m or 1h.';
+        const n = parseInt(d[1], 10);
+        plan.delayMin = d[2] === 's' ? n / 60 : d[2] === 'h' ? n * 60 : n;
+        i++;
+      } else if (opt === '--depth') {
+        if (val !== 'quick' && val !== 'standard' && val !== 'deep') return 'Use --depth quick, standard or deep.';
+        plan.depth = val;
+        i++;
+      } else {
+        return 'Unknown option. Try --max-delay or --depth.';
+      }
+    }
+    return plan;
+  }
+
+  function simulate(event?: Event) {
+    event?.preventDefault();
+    el<HTMLOutputElement>('s-files-out').value = files.value;
+    const plan = parse(cmd.value);
+    if (typeof plan === 'string') {
+      err.textContent = plan;
+      cmd.setAttribute('aria-invalid', 'true');
+      return;
+    }
+    err.textContent = '';
+    cmd.setAttribute('aria-invalid', 'false');
+
+    const n = parseInt(files.value, 10);
+    const contextFactor = plan.depth === 'deep' ? 1.5 : 1;
+    const fullScan = n * PER_FILE * contextFactor;
+    const scanCost = Math.min(fullScan, plan.amount);
+    const coveredFiles = fullScan <= plan.amount ? n : Math.max(1, Math.floor(plan.amount / (PER_FILE * contextFactor)));
+    const maxRounds = plan.depth === 'quick' ? 0 : plan.depth === 'deep' ? 9 : 5;
+    const rounds = Math.max(0, Math.min(maxRounds, Math.floor((plan.amount - scanCost) / PER_ROUND)));
+    const cost = scanCost + rounds * PER_ROUND;
+    const minutes = 0.5 + coveredFiles * 0.05 * contextFactor + rounds * 0.25;
+
+    const depthName = plan.depth[0].toUpperCase() + plan.depth.slice(1);
+    el('o-depth').textContent = rounds > 0
+      ? `${depthName}: context, scan, ${rounds} triage round${rounds === 1 ? '' : 's'}`
+      : `${depthName}: one fast pass, no triage`;
+    el('o-steps').textContent = rounds > 0 ? 'Context · Scan · Triage · Report' : 'Context · Scan · Report';
+    el('o-cost').textContent = `${eur(cost)} of ${eur(plan.amount)} cap`;
+
+    if (plan.delayMin === null) {
+      el('o-deadline').textContent = `No deadline set (about ${Math.ceil(minutes)} min)`;
+    } else if (minutes <= plan.delayMin) {
+      el('o-deadline').textContent = `Fits within ${plan.delayMin >= 1 ? Math.round(plan.delayMin) + ' min' : Math.round(plan.delayMin * 60) + ' s'}`;
+    } else {
+      el('o-deadline').textContent = 'Over the deadline: a partial report is posted';
+    }
+    el('o-partial').textContent = coveredFiles < n
+      ? `Budget covers ${coveredFiles} of ${n} files; the report lists them`
+      : 'Partial report listing covered files';
+
+    const hints: string[] = [];
+    if (plan.depth !== 'quick' && rounds < 3) hints.push('This cap covers a quick pass only. Raise it for multi-round triage.');
+    if (lang.value !== 'c') hints.push('Results are weaker outside C and C++ today.');
+    const hint = el<HTMLParagraphElement>('o-hint');
+    hint.hidden = hints.length === 0;
+    hint.textContent = hints.join(' ');
+  }
+
+  el<HTMLFormElement>('sim').addEventListener('submit', simulate);
+  files.addEventListener('input', () => simulate());
+  lang.addEventListener('change', () => simulate());
+  document.querySelectorAll<HTMLButtonElement>('[data-preset]').forEach((b) =>
+    b.addEventListener('click', () => { cmd.value = b.dataset.preset || ''; simulate(); })
+  );
+  simulate();
+</script>

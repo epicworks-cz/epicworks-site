@@ -1,0 +1,4 @@
+Contact: mailto:scan@epicworks.cz
+Expires: 2027-11-07T00:00:00.000Z
+Preferred-Languages: en, cs
+Canonical: https://epicworks.cz/.well-known/security.txt

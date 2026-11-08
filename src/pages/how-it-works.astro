@@ -1,0 +1,125 @@
+---
+import Base from '../layouts/Base.astro';
+const ciExample = `security-scan:
+  image: python:3.12
+  script:
+    - git clone https://github.com/Huge/nano-analyzer.git /tmp/nano-analyzer
+    - python3 /tmp/nano-analyzer/scan.py ./src --output-dir scan-results
+  artifacts:
+    paths:
+      - scan-results/`;
+---
+<Base
+  title="How EpicScan works: pipeline, CLI and command syntax"
+  description="Three-stage LLM security scan with skeptical triage. Run the open-source CLI today; the @epicscan comment command is coming next."
+  path="/how-it-works"
+>
+  <section class="page-hero">
+    <div class="container hero-inner" style="gap: 20px;">
+      <h1 class="h1">How EpicScan works</h1>
+      <p class="lead">EpicScan reads your changed code the way a careful reviewer would: first it understands the file, then it hunts for bugs, then it argues with itself about every finding before reporting it.</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top: 24px;">
+    <div class="container">
+      <h2 class="h2" style="margin-bottom: 32px;">The pipeline</h2>
+      <ol class="grid" style="--min: 240px; list-style: none; margin: 0; padding: 0;">
+        <li class="card"><span class="eyebrow" style="color: var(--teal);">1 · Context</span><p>A model writes a security briefing for each file: what it does, where untrusted data enters, which buffers exist and how big they are.</p></li>
+        <li class="card"><span class="eyebrow" style="color: var(--indigo-soft);">2 · Scan</span><p>Primed with that briefing, the model checks the code function by function and records structured findings.</p></li>
+        <li class="card"><span class="eyebrow" style="color: #7dd3fc;">3 · Skeptical triage</span><p>Every finding of medium severity or above is challenged over several rounds (5 by default). The reviewer can search the codebase to confirm or refute a claimed defence.</p></li>
+        <li class="card"><span class="eyebrow" style="color: var(--green);">4 · Verdict</span><p>An arbiter reads every round and marks the finding valid or invalid. The confidence score is the share of rounds that said valid.</p></li>
+      </ol>
+      <p class="muted" style="margin-top: 20px;">Results are saved as Markdown for people and JSON for tools.</p>
+    </div>
+  </section>
+
+  <section id="quick-start" class="section section-alt">
+    <div class="container narrow stack" style="--gap: 20px;">
+      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px;"><h2 class="h2">Quick start: the CLI</h2><span class="status status-live" style="align-self: center;">Live</span></div>
+      <p>You need Python 3.8 or newer and an API key for the model you use. No packages to install.</p>
+      <pre><code>git clone https://github.com/Huge/nano-analyzer.git
+cd nano-analyzer
+python3 scan.py --help</code></pre>
+      <p>Scan a file or a whole folder:</p>
+      <pre><code>python3 scan.py ./src/</code></pre>
+      <p>Useful options:</p>
+      <div class="scroll-x">
+        <table class="table">
+          <thead><tr><th scope="col">Option</th><th scope="col">Default</th><th scope="col">What it does</th></tr></thead>
+          <tbody>
+            <tr><td><code>--model</code></td><td><code>gpt-5.4-nano</code></td><td>Model used for every stage</td></tr>
+            <tr><td><code>--triage-rounds</code></td><td><code>5</code></td><td>Rounds of skeptical review per finding</td></tr>
+            <tr><td><code>--min-confidence</code></td><td><code>0.0</code></td><td>Show only findings above this confidence (0.0 to 1.0)</td></tr>
+            <tr><td><code>--repo-dir</code></td><td>auto</td><td>Repository root the reviewer may search</td></tr>
+            <tr><td><code>--output-dir</code></td><td><code>~/nano-analyzer-results/&lt;timestamp&gt;/</code></td><td>Where results are written</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>The full list of options is in the <a href="https://github.com/Huge/nano-analyzer" rel="noopener">README</a>.</p>
+    </div>
+  </section>
+
+  <section id="ci" class="section">
+    <div class="container narrow stack" style="--gap: 20px;">
+      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px;"><h2 class="h2">Run it in your CI</h2><span class="status status-live" style="align-self: center;">Live</span></div>
+      <p>Any CI job that can run Python can run the scanner. Store your model API key as a protected CI variable and keep the results as a job artifact. A GitLab example:</p>
+      <pre><code>{ciExample}</code></pre>
+      <p>A ready GitLab merge-request job and a GitHub Action are in private testing. Early-access members get them first.</p>
+    </div>
+  </section>
+
+  <section id="syntax" class="section section-alt">
+    <div class="container narrow stack" style="--gap: 20px;">
+      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px;"><h2 class="h2">Command syntax</h2><span class="status status-roadmap" style="align-self: center;">Roadmap</span></div>
+      <p>Comment on any pull or merge request:</p>
+      <pre><code>@epicscan €&lt;amount&gt; [--max-delay &lt;time&gt;] [--depth &lt;level&gt;]</code></pre>
+      <div class="scroll-x">
+        <table class="table">
+          <thead><tr><th scope="col">Part</th><th scope="col">Example</th><th scope="col">Meaning</th></tr></thead>
+          <tbody>
+            <tr><td><code>€&lt;amount&gt;</code></td><td><code>€0.50</code></td><td>Most you will spend on this scan, in euros</td></tr>
+            <tr><td><code>--max-delay</code></td><td><code>5m</code></td><td>Finish by then; if time runs out, post a partial report. Accepts <code>90s</code>, <code>5m</code>, <code>1h</code></td></tr>
+            <tr><td><code>--depth</code></td><td><code>deep</code></td><td><code>quick</code>, <code>standard</code> (default) or <code>deep</code>: how the budget is spent</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>EpicScan plans the depth to fit both limits and reports what it covered and what it cost. <a href="/simulator">Try it in the simulator</a>.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container narrow">
+      <div class="split" style="gap: 40px;">
+        <div class="stack" style="--gap: 16px;">
+          <h2 class="h2" style="font-size: 30px;">What works today</h2>
+          <table class="table">
+            <thead><tr><th scope="col">Feature</th><th scope="col">Status</th></tr></thead>
+            <tbody>
+              <tr><td>Open-source CLI scanner</td><td><span class="status status-live">Live</span></td></tr>
+              <tr><td>Running the scanner in your own CI</td><td><span class="status status-live">Live</span></td></tr>
+              <tr><td>GitLab merge-request job</td><td><span class="status status-testing">In testing</span></td></tr>
+              <tr><td>GitHub Action</td><td><span class="status status-testing">In testing</span></td></tr>
+              <tr><td>Your own model endpoint</td><td><span class="status status-testing">In testing</span></td></tr>
+              <tr><td>Hosted scans on our Mac Studio machines</td><td><span class="status status-testing">In testing</span></td></tr>
+              <tr><td><code>@epicscan</code> comment command</td><td><span class="status status-roadmap">Roadmap</span></td></tr>
+              <tr><td>Budget and deadline caps</td><td><span class="status status-roadmap">Roadmap</span></td></tr>
+              <tr><td>Prepaid credits</td><td><span class="status status-roadmap">Roadmap</span></td></tr>
+              <tr><td>Skipping unchanged files on re-scan</td><td><span class="status status-roadmap">Roadmap</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="stack" style="--gap: 16px;">
+          <h2 class="h2" style="font-size: 30px;">Limits you should know</h2>
+          <ul class="checks" style="color: var(--text-body);">
+            <li>Tuned for C and C++ memory-safety bugs; other languages give weaker results.</li>
+            <li>Each file is analysed on its own, so bugs that span several files may be missed.</li>
+            <li>Logic bugs, race conditions, crypto and authentication flaws are often missed.</li>
+            <li>A clean scan does not mean the code is safe.</li>
+          </ul>
+          <a class="btn btn-primary" href="/early-access" style="align-self: flex-start; margin-top: 12px;">Request early access</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
