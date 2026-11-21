@@ -1,0 +1,35 @@
+---
+import Base from '../../layouts/Base.astro';
+const reports = [
+  {
+    href: '/research/local-qwen-opus-validation',
+    date: '2026-11-21',
+    label: '21 Nov 2026',
+    title: 'A local model finds the bugs, Opus throws out the noise',
+    summary: "AISLE's nano-analyzer benchmark rerun on our Mac Studio with Qwen 3.6 35B A3B, then Claude Opus 4.6 as a paid second opinion: detection, false alarms, time and cost.",
+  },
+];
+---
+<Base
+  title="EpicScan research: benchmarks and measurements"
+  description="How well does EpicScan find real vulnerabilities, and how many false alarms does it raise? Our published measurements on known CVEs."
+  path="/research"
+>
+  <section class="page-hero">
+    <div class="container narrow hero-inner" style="gap: 20px;">
+      <h1 class="h1">Research</h1>
+      <p class="lead">We test EpicScan against real, published vulnerabilities before we scan anyone's code, and we publish what we measure, including the misses.</p>
+    </div>
+  </section>
+  <section class="section" style="padding-top: 24px;">
+    <div class="container narrow stack" style="--gap: 20px;">
+      {reports.map((r) => (
+        <article class="card">
+          <span class="eyebrow" style="color: var(--teal);">Benchmark report · <time datetime={r.date}>{r.label}</time></span>
+          <h2 style="font-size: 22px;"><a href={r.href}>{r.title}</a></h2>
+          <p>{r.summary}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+</Base>
