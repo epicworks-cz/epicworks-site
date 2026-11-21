@@ -7,6 +7,8 @@ const pages: { path: string; lastmod: string; priority: string }[] = [
   { path: '/pricing', lastmod: '2026-11-07', priority: '0.8' },
   { path: '/simulator', lastmod: '2026-11-07', priority: '0.6' },
   { path: '/privacy-and-data', lastmod: '2026-11-07', priority: '0.6' },
+  { path: '/research', lastmod: '2026-11-21', priority: '0.6' },
+  { path: '/research/local-qwen-opus-validation', lastmod: '2026-11-21', priority: '0.7' },
   { path: '/early-access', lastmod: '2026-11-07', priority: '0.7' },
   { path: '/legal/imprint', lastmod: '2026-11-07', priority: '0.2' },
   { path: '/legal/privacy', lastmod: '2026-11-07', priority: '0.2' },
