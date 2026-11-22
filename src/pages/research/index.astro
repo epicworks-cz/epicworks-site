@@ -1,6 +1,16 @@
 ---
 import Base from '../../layouts/Base.astro';
+import { apps } from '../../data/wider-benchmark';
+const wider = [
+  {
+    href: '/research/wider-benchmark-9-cves', date: '2026-11-22', label: '22 Nov 2026',
+    title: 'Nine real CVEs, one Mac Studio',
+    summary: 'Nine published CVEs in nine applications, 54 runs: what a local scanner finds, what it misses, and what an Opus check can and cannot fix.',
+  },
+  ...apps.map((x) => ({ href: `/research/${x.slug}`, date: x.published, label: '22 Nov 2026', title: x.headline, summary: x.summary })),
+];
 const reports = [
+  ...wider,
   {
     href: '/research/local-qwen-opus-validation',
     date: '2026-11-21',

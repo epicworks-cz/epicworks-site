@@ -1,5 +1,6 @@
 // Static sitemap, generated at build time. Update `lastmod` when a page's content changes.
 import type { APIRoute } from 'astro';
+import { apps } from '../data/wider-benchmark';
 
 const pages: { path: string; lastmod: string; priority: string }[] = [
   { path: '/', lastmod: '2026-11-07', priority: '1.0' },
@@ -7,8 +8,10 @@ const pages: { path: string; lastmod: string; priority: string }[] = [
   { path: '/pricing', lastmod: '2026-11-07', priority: '0.8' },
   { path: '/simulator', lastmod: '2026-11-07', priority: '0.6' },
   { path: '/privacy-and-data', lastmod: '2026-11-07', priority: '0.6' },
-  { path: '/research', lastmod: '2026-11-21', priority: '0.6' },
+  { path: '/research', lastmod: '2026-11-22', priority: '0.6' },
   { path: '/research/local-qwen-opus-validation', lastmod: '2026-11-21', priority: '0.7' },
+  { path: '/research/wider-benchmark-9-cves', lastmod: '2026-11-22', priority: '0.7' },
+  ...apps.map((a) => ({ path: `/research/${a.slug}`, lastmod: a.published, priority: '0.6' })),
   { path: '/early-access', lastmod: '2026-11-07', priority: '0.7' },
   { path: '/legal/imprint', lastmod: '2026-11-07', priority: '0.2' },
   { path: '/legal/privacy', lastmod: '2026-11-07', priority: '0.2' },
