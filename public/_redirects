@@ -1,4 +1,13 @@
-# Old iframe site sections (retired in the 2026 rebuild)
-/sections/*        /    301
-/index.html        /    301
-/api/contact       /early-access    302
+# Coming soon period: every former page goes to the home page.
+# 302 (temporary) so the old URLs can return later.
+/sections/*         /    301
+/index.html         /    301
+/api/*              /    302
+/how-it-works       /    302
+/simulator          /    302
+/pricing            /    302
+/privacy-and-data   /    302
+/early-access       /    302
+/research           /    302
+/research/*         /    302
+/legal/*            /    302
